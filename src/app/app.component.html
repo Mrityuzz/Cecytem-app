@@ -1,0 +1,40 @@
+<!-- Layout para login/registro -->
+<ng-container *ngIf="!mostrarLayout; else mainLayout">
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>
+
+<!-- Layout principal con header y navbar -->
+<ng-template #mainLayout>
+  <!-- Header dinámico -->
+  <app-header [tituloModulo]="tituloModulo"></app-header>
+
+  <!-- Contenido principal -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Barra de navegación inferior -->
+  <nav class="bottom-nav" id="bottomNav">
+    <a routerLink="/dashboard/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-symbols-outlined">business_center</span>
+      <span class="label">Dashboard</span>
+    </a>
+
+    <a routerLink="/asistencia/entrada" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-symbols-outlined">badge</span>
+      <span class="label">Asistencia</span>
+    </a>
+
+    <a routerLink="/reportes/historial" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-symbols-outlined">analytics</span>
+      <span class="label">Reportes</span>
+    </a>
+
+    <a routerLink="/cuenta/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-symbols-outlined">manage_accounts</span>
+      <span class="label">Cuenta</span>
+    </a>
+  </nav>
+</ng-template>

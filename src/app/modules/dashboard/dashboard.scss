@@ -1,0 +1,123 @@
+.credencial-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  padding: 1rem; 
+  background: var(--bg-color, #f0f0f0);
+}
+
+.credencial-card {
+  width: 100%;
+  max-width: 400px;
+  min-height: 520px;
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row; /* 🔹 dos columnas */
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+
+  .lateral {
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    writing-mode: vertical-rl;
+    padding: 8px;
+    font-size: 0.75rem; /* 🔹 más compacto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px; /* ancho fijo */
+  }
+
+  .contenido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+  }
+
+  .header {
+    text-align: center;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+
+    img { width: 50px; margin-bottom: 0.3rem; }
+    h3 { margin: 0; color: #4caf50; font-size: 1rem; } /* 🔹 reducido */
+    p { margin: 0; font-size: 0.75rem; color: var(--text-secondary, #555); }
+  }
+
+  .foto {
+    font-size: 3.5rem; /* 🔹 más pequeño */
+    color: var(--primary-color, #2196f3);
+    margin: 0.8rem 0;
+    text-align: center;
+  }
+
+  /* 🔹 Ajuste de espaciado y tamaño en los datos */
+  .info {
+    text-align: center;
+    margin: 1rem 0;
+
+    p {
+      margin: 0.3rem 0;       /* separación moderada */
+      font-weight: bold;
+      color: var(--text-primary, #333);
+      white-space: nowrap;    /* 🔹 evita que se parta en dos líneas */
+      line-height: 1.2;
+    }
+
+    .nombre { font-size: 1rem; }   /* 🔹 más compacto */
+    .carrera { font-size: 0.95rem; }
+    .control { font-size: 0.9rem; letter-spacing: 0.5px; }
+  }
+
+  .años {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+
+    span {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: var(--year-bg, #f5f5f5);
+      color: var(--text-secondary, #555);
+      font-size: 0.75rem; /* 🔹 reducido */
+    }
+
+    .activo {
+      background: #4caf50; /* verde */
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .inactivo {
+      background: #f44336; /* rojo */
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}
+
+/* 🌙 Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .credencial-container { background: #121212; }
+
+  .credencial-card {
+    background: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(255,255,255,0.05);
+
+    .header h3 { color: #81c784; }
+    .header p { color: #bbb; }
+    .foto { color: #64b5f6; }
+    .info p { color: #e0e0e0; }
+    .años span { background: #2c2c2c; color: #bbb; }
+    .años .activo { background: #4caf50; color: #fff; }
+    .años .inactivo { background: #f44336; color: #fff; }
+  }
+}

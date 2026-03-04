@@ -1,0 +1,35 @@
+<div class="credencial-container" *ngIf="credencial$ | async as credencial">
+  <div class="credencial-card">
+    <!-- Franja lateral -->
+    <div class="lateral">
+      <p>CECYTE PLANTEL 12 MORELIA</p>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="contenido">
+      <div class="header">
+        <img src="/assets/logo/CECYTEM.png" alt="Logo CECyTE" />
+        <h3>CECyTE</h3>
+        <p>Colegios de Estudios Científicos y Tecnológicos</p>
+      </div>
+
+      <div class="foto">
+        <span class="material-symbols-outlined">account_circle</span>
+      </div>
+
+      <div class="info">
+        <p class="nombre">{{ credencial.nombre }}</p>
+        <p class="carrera">{{ credencial.carrera_tecnica }}</p>
+        <p class="control">{{ credencial.numero_control }}</p>
+      </div>
+
+      <!-- 🔹 Aquí se pintará el año actual según estado -->
+      <div class="años">
+        <span [ngClass]="{activo: currentYear === 2022 && credencial.activo, inactivo: currentYear === 2022 && !credencial.activo}">2022</span>
+        <span [ngClass]="{activo: currentYear === 2023 && credencial.activo, inactivo: currentYear === 2023 && !credencial.activo}">2023</span>
+        <span [ngClass]="{activo: currentYear === 2026 && credencial.activo, inactivo: currentYear === 2026 && !credencial.activo}">2026</span>
+        <span [ngClass]="{activo: currentYear === 2027 && credencial.activo, inactivo: currentYear === 2027 && !credencial.activo}">2027</span>
+      </div>
+    </div>
+  </div>
+</div>

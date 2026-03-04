@@ -1,0 +1,73 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background: var(--nav-bg, #ffffff);
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  z-index: 1000;
+}
+
+.bottom-nav a {
+  flex: 1;
+  text-decoration: none;
+  color: var(--nav-color, #006699);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.bottom-nav a .material-symbols-outlined {
+  font-size: 28px;
+  margin-bottom: 2px;
+}
+
+.bottom-nav a .label {
+  font-size: 12px;
+}
+
+.bottom-nav a.active {
+  color: var(--nav-active, #008000);
+  font-weight: 600;
+}
+
+.bottom-nav a.active .material-symbols-outlined {
+  background: rgba(0, 128, 0, 0.1);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+/* 🌙 Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .bottom-nav {
+    background: #1c1c1c;
+    box-shadow: 0 -1px 4px rgba(255, 255, 255, 0.1);
+  }
+  .bottom-nav a {
+    color: #ffffff;
+  }
+  .bottom-nav a.active {
+    color: #00ff99;
+  }
+  .bottom-nav a.active .material-symbols-outlined {
+    background: rgba(0, 255, 153, 0.1);
+  }
+}
+
+/* 📱 Ajustes móviles */
+@media (max-width: 480px) {
+  .bottom-nav {
+    height: 50px;
+    padding: 0.3rem 0;
+  }
+  .bottom-nav a .material-symbols-outlined {
+    font-size: 24px;
+  }
+  .bottom-nav a .label {
+    font-size: 11px;
+  }
+}

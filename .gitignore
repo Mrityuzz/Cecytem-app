@@ -1,0 +1,23 @@
+# Angular build
+dist/
+.tmp/
+.cache/
+
+# Node.js
+node_modules/
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

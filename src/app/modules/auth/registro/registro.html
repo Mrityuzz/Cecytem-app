@@ -1,0 +1,38 @@
+<app-auth-header titulo="Registro"></app-auth-header>
+
+<div class="auth-container">
+  <img src="/assets/logo/CECYTEM.png" alt="Logo CECyTEM" class="logo" />
+
+  <h2>Crear cuenta</h2>
+
+  <form>
+    <label for="control">Número de control</label>
+    <input
+      id="control"
+      type="text"
+      placeholder="Ingresa tu número de control"
+      [(ngModel)]="numeroControl"
+      name="control"
+    />
+
+    <label for="newPassword">Contraseña</label>
+    <input
+      id="newPassword"
+      type="password"
+      placeholder="Crea tu contraseña"
+      [(ngModel)]="newPassword"
+      name="newPassword"
+    />
+
+    <label for="confirmPassword">Confirmar contraseña</label>
+    <input
+      id="confirmPassword"
+      type="password"
+      placeholder="Repite tu contraseña"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+    />
+
+    <button type="button" (click)="onRegister()">Registrarse</button>
+  </form>
+</div>

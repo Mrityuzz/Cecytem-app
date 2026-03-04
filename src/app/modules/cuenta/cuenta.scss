@@ -1,0 +1,95 @@
+.cuenta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* ocupa toda la pantalla */
+  padding: 0.5rem;
+}
+
+.cuenta-card {
+  width: 100%;
+  max-width: 500px;
+  height: calc(100vh - 4rem); /* deja espacio mínimo arriba y abajo */
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+
+  .foto {
+    font-size: 6rem;
+    color: var(--primary-color, #2196f3);
+    margin-bottom: 0.5rem;
+  }
+
+  .header {
+    border-bottom: 2px solid #2196f3;
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+      color: #2196f3;
+    }
+  }
+
+  .info {
+    text-align: left;
+    flex-grow: 1;
+
+    p {
+      margin: 0.5rem 0;
+      color: var(--text-primary, #333);
+      font-size: 1.1rem;
+    }
+  }
+
+  .acciones {
+    text-align: center;
+
+    .btn-logout {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #f44336;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #d32f2f;
+      }
+    }
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .cuenta-card {
+    background: #1e1e1e;
+    box-shadow: 0 4px 10px rgba(255,255,255,0.05);
+
+    .foto {
+      color: #64b5f6;
+    }
+
+    .header h2 {
+      color: #64b5f6;
+    }
+
+    .info p {
+      color: #e0e0e0;
+    }
+
+    .btn-logout {
+      background-color: #e53935;
+
+      &:hover {
+        background-color: #c62828;
+      }
+    }
+  }
+}
