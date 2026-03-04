@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentaService {
-  private apiUrl = 'http://localhost:8000/api/cuenta'; // Ajusta según tu backend Django/Jupyter
+  constructor(private firestore: Firestore) {}
 
-  constructor(private http: HttpClient) {}
-
+  /**
+   * Recupera el documento del alumno en tiempo real desde Firestore
+   * @param userId número de control del alumno
+   * @returns Observable con los datos del alumno
+   */
   obtenerCuenta(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+    const ref = doc(this.firestore, `alumnos/${userId}`);
+    return docData(ref, { idField: 'id' }); 
+    // idField agrega el ID del documento al objeto resultante
   }
 }

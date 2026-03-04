@@ -38,8 +38,8 @@ export class Login {
         console.log('Alumno:', this.alumno);
 
         if (alumno) {
-          // Guardar número de control en localStorage para que el Dashboard lo use
-          localStorage.setItem('numeroControl', alumno.numero_control);
+          // Guardar número de control en localStorage con la clave que usa CuentaComponent
+          localStorage.setItem('userId', alumno.numero_control);
         }
 
         // Redirigir al dashboard

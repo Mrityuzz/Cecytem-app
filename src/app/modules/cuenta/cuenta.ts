@@ -13,7 +13,10 @@ import { CuentaService } from './cuenta.service';
 export class CuentaComponent implements OnInit {
   cuenta: any;
 
-  constructor(private cuentaService: CuentaService, private router: Router) {}
+  constructor(
+    private cuentaService: CuentaService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
@@ -26,7 +29,7 @@ export class CuentaComponent implements OnInit {
 
   onLogout(): void {
     console.log('Sesión cerrada');
-    localStorage.removeItem('userId'); // limpia la sesión
-    this.router.navigate(['/auth/login']); // redirige al login
+    localStorage.removeItem('userId'); 
+    this.router.navigate(['/auth/login']); 
   }
 }

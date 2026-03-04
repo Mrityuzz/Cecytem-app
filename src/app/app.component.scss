@@ -41,7 +41,7 @@
   padding: 4px;
 }
 
-/* 🌙 Modo oscuro */
+/* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .bottom-nav {
     background: #1c1c1c;
@@ -58,7 +58,6 @@
   }
 }
 
-/* 📱 Ajustes móviles */
 @media (max-width: 480px) {
   .bottom-nav {
     height: 50px;

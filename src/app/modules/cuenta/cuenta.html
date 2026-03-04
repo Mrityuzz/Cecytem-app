@@ -1,23 +1,23 @@
-<div class="cuenta-container">
+<div class="cuenta-container" *ngIf="cuenta">
   <div class="cuenta-card">
-    <!-- Foto o ícono de perfil -->
     <div class="foto">
       <span class="material-symbols-outlined">account_circle</span>
     </div>
 
-    <!-- Encabezado -->
     <div class="header">
       <h2>Perfil del Usuario</h2>
     </div>
 
-    <!-- Datos simulados -->
     <div class="info">
-      <p><strong>Número de Control:</strong> 202600123</p>
-      <p><strong>Nombre:</strong> Juan Pérez</p>
-      <p><strong>Carrera:</strong> Técnico en Electrónica</p>
+      <p><strong>Nombre:</strong> {{ cuenta.nombre }}</p>
+      <p><strong>Carrera:</strong> {{ cuenta.carrera_tecnica }}</p>
+      <p><strong>Número de Control:</strong> {{ cuenta.numero_control }}</p>
+      <p><strong>NSS:</strong> {{ cuenta.nss }}</p>
+      <p><strong>Semestre:</strong> {{ cuenta.semestre }}</p>
+      <!-- Nuevo campo de teléfono -->
+      <p><strong>Teléfono:</strong> <span class="telefono">{{ cuenta.telefono }}</span></p>
     </div>
 
-    <!-- Botón de cerrar sesión -->
     <div class="acciones">
       <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
     </div>
