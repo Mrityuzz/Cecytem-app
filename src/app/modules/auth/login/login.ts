@@ -29,7 +29,7 @@ export class Login {
       const userCredential = await this.authService.login(this.email, this.password);
       console.log('Login correcto:', userCredential.user);
 
-      // Derivar número de control desde el correo institucional (ejemplo: 202600123@cecytem.edu.mx)
+      // Derivar número de control desde el correo institucional 
       const numeroControl = this.email.split('@')[0];
 
       // Traer datos reales del alumno desde Firestore usando número de control como ID

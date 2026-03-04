@@ -16,7 +16,7 @@ import { HeaderComponent } from './header/header';
 })
 export class AppComponent {
   tituloModulo = '';
-  mostrarLayout = false;   // por defecto login/registro
+  mostrarLayout = false;   
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
@@ -43,7 +43,6 @@ export class AppComponent {
   }
 
   private actualizarLayout(url: string): void {
-    // ✅ Si la ruta empieza con /auth → mostrar login/registro
     if (url.startsWith('/auth')) {
       this.mostrarLayout = false;
     } else {

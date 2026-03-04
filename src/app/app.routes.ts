@@ -29,10 +29,10 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'auth/login',
-    pathMatch: 'full' // ✅ redirección inicial clara
+    pathMatch: 'full' 
   },
   {
     path: '**',
-    redirectTo: 'auth/login' // ✅ comodín global
+    redirectTo: 'auth/login' 
   }
 ];

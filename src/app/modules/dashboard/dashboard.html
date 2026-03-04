@@ -23,7 +23,7 @@
         <p class="control">{{ credencial.numero_control }}</p>
       </div>
 
-      <!-- 🔹 Aquí se pintará el año actual según estado -->
+      <!--  Aquí se pintará el año actual según estado -->
       <div class="años">
         <span [ngClass]="{activo: currentYear === 2022 && credencial.activo, inactivo: currentYear === 2022 && !credencial.activo}">2022</span>
         <span [ngClass]="{activo: currentYear === 2023 && credencial.activo, inactivo: currentYear === 2023 && !credencial.activo}">2023</span>

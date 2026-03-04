@@ -1,6 +1,6 @@
 .auth-container {
   max-width: 280px;
-  margin: 4rem auto 0 auto; // margen superior para despegar del header
+  margin: 4rem auto 0 auto; 
   padding: 1rem 0.8rem;
   display: flex;
   flex-direction: column;
@@ -12,8 +12,8 @@
 
   .logo {
     display: block;
-    margin: 0 auto 1.2rem auto; // centrado con espacio debajo
-    max-height: 60px;           // tamaño equilibrado del logotipo
+    margin: 0 auto 1.2rem auto; 
+    max-height: 60px;           
     width: auto;
   }
 

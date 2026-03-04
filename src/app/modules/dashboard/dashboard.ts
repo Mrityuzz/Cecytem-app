@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     const numeroControl = localStorage.getItem('numeroControl');
     if (numeroControl) {
       const ref = doc(this.firestore, `alumnos/${numeroControl}`);
-      this.credencial$ = docData(ref); // observable en tiempo real
+      this.credencial$ = docData(ref); 
     }
   }
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  private apiUrl = 'http://localhost:8000/api/credencial'; // Ajusta según tu backend Django
+  private apiUrl = 'http://localhost:8000/api/credencial'; 
 
   constructor(private http: HttpClient) {}
 
