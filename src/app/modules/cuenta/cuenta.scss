@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: var(--card-bg, #fff);
+  background: #fff; // 🔹 fondo claro fijo
   text-align: center;
 
   .foto {
@@ -25,19 +25,19 @@
     height: 80px;
     margin: 0 auto;
     border-radius: 50%;
-    background: var(--primary-light, #e3f2fd);
+    background: #e3f2fd; 
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5rem; 
-    color: var(--primary-color, #2196f3);
+    color: #2196f3; 
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
 
   .header h2 {
     margin: 0.3rem 0 0;
-    font-size: 1.2rem; 
-    color: var(--primary-color, #2196f3);
+    font-size: 1.4rem; 
+    color: #008000; // 🔹 verde institucional del header en modo claro
     font-weight: bold;
   }
 
@@ -50,7 +50,7 @@
     p {
       margin: 0;
       font-size: 0.9rem; 
-      color: var(--text-primary, #333);
+      color: #333;
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -58,8 +58,7 @@
     }
 
     .telefono {
-      color: var(--text-primary, #333);
-      font-weight: normal;
+      color: #333;
     }
 
     .nss {
@@ -90,7 +89,7 @@
   }
 }
 
-/* Modo oscuro */
+/* 🔹 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .cuenta-card {
     background: #1e1e1e;
@@ -102,7 +101,7 @@
     }
 
     .header h2 {
-      color: #64b5f6;
+      color: #00ff99; // 🔹 verde neón en modo oscuro
     }
 
     .info p {
@@ -112,7 +111,6 @@
 
     .info .telefono {
       color: #e0e0e0;
-      font-weight: normal;
     }
 
     .info .nss {

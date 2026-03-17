@@ -19,9 +19,9 @@ export class CuentaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.cuentaService.obtenerCuenta(userId).subscribe(data => {
+    const numeroControl = localStorage.getItem('numeroControl');
+    if (numeroControl) {
+      this.cuentaService.obtenerCuenta(numeroControl).subscribe(data => {
         this.cuenta = data;
       });
     }
@@ -29,7 +29,7 @@ export class CuentaComponent implements OnInit {
 
   onLogout(): void {
     console.log('Sesión cerrada');
-    localStorage.removeItem('userId'); 
+    localStorage.removeItem('numeroControl'); 
     this.router.navigate(['/auth/login']); 
   }
 }

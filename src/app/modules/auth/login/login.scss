@@ -32,13 +32,37 @@
     display: block;
   }
 
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 0.6rem;
+  .input-group {
+    display: flex;
+    align-items: center;
+    background: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 13px;
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.6rem;
+
+    i {
+      color: #008000; // verde institucional
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      background: transparent;
+      color: #444;
+
+      &::placeholder {
+        color: #777; // gris en modo claro
+      }
+
+      &:focus::placeholder {
+        color: #008000; // verde al focus
+      }
+    }
   }
 
   button {
@@ -52,6 +76,14 @@
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
   }
 
   button:hover {
@@ -59,7 +91,7 @@
   }
 }
 
-/* Modo oscuro */
+/* 🔹 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .auth-container {
     background: #121212;
@@ -72,10 +104,25 @@
     h2 { color: #00ff99; }
     label { color: #eee; }
 
-    input {
+    .input-group {
       background: #1e1e1e;
       border: 1px solid #444;
-      color: #eee;
+
+      i {
+        color: #00ff99;
+      }
+
+      input {
+        color: #eee;
+
+        &::placeholder {
+          color: #aaa; // gris claro en oscuro
+        }
+
+        &:focus::placeholder {
+          color: #00ff99; // verde neón al focus
+        }
+      }
     }
 
     button {
@@ -89,6 +136,7 @@
   }
 }
 
+/* 🔹 Responsive */
 @media (max-width: 480px) {
   .auth-container {
     margin-top: 2rem; 
@@ -103,7 +151,7 @@
       margin-bottom: 0.6rem;
     }
 
-    input {
+    .input-group input {
       font-size: 12px;
       padding: 7px;
     }
