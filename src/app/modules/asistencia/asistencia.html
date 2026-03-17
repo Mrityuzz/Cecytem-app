@@ -1,33 +1,21 @@
-<div class="asistencia-container">
-  <h2>Registro de Asistencia</h2>
+<div class="asistencia-page">
+  <header class="header">
+    <h1>Asistencia</h1>
+  </header>
 
-  <!-- Mensaje dinámico -->
-  <p>{{ mensaje }}</p>
+  <main class="asistencia-container">
+    <h2>Asistencia En Tiempo Real</h2>
 
-  <!-- Lista simulada de registros en tarjetas -->
-  <div class="lista-asistencia">
-    <div class="registro entrada">
-      <p class="fecha">19/02/2026</p>
-      <p class="hora">08:05</p>
-      <p class="tipo">Entrada</p>
+    <div class="lista-asistencia" *ngIf="asistencia.length > 0">
+      <div *ngFor="let registro of asistencia" class="registro entrada">
+        <span class="tipo">Entrada</span>
+        <span class="hora">{{ registro.entrada }}</span>
+      </div>
+
+      <div *ngFor="let registro of asistencia" class="registro salida">
+        <span class="tipo">Salida</span>
+        <span class="hora">{{ registro.salida }}</span>
+      </div>
     </div>
-
-    <div class="registro salida">
-      <p class="fecha">19/02/2026</p>
-      <p class="hora">14:00</p>
-      <p class="tipo">Salida</p>
-    </div>
-
-    <div class="registro entrada">
-      <p class="fecha">18/02/2026</p>
-      <p class="hora">08:10</p>
-      <p class="tipo">Entrada</p>
-    </div>
-
-    <div class="registro salida">
-      <p class="fecha">18/02/2026</p>
-      <p class="hora">13:55</p>
-      <p class="tipo">Salida</p>
-    </div>
-  </div>
+  </main>
 </div>

@@ -39,7 +39,7 @@ export class Login {
 
         if (alumno) {
           // Guardar número de control en localStorage con la clave que usa CuentaComponent
-          localStorage.setItem('userId', alumno.numero_control);
+          localStorage.setItem('numeroControl', alumno.numero_control);
         }
 
         // Redirigir al dashboard

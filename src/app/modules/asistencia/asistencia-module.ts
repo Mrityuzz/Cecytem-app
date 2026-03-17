@@ -1,8 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { AsistenciaRoutingModule } from './asistencia-routing-module';
+import { AsistenciaComponent } from './asistencia';
 
 @NgModule({
-  imports: [CommonModule, AsistenciaRoutingModule]
+  imports: [
+    CommonModule,
+    FormsModule,
+    AsistenciaRoutingModule,
+    AsistenciaComponent
+  ],
+  providers: [
+    DatePipe
+  ]
 })
 export class AsistenciaModule {}

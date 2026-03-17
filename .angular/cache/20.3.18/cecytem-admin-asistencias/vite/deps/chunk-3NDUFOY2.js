@@ -40,27 +40,29 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-OZOXHWL6.js";
+} from "./chunk-BQEVOHLE.js";
 import {
   InjectionToken,
   Injector,
   NgModule,
   NgZone,
-  Observable,
   Optional,
   PLATFORM_ID,
+  makeEnvironmentProviders,
+  setClassMetadata,
+  ɵɵdefineInjector,
+  ɵɵdefineNgModule
+} from "./chunk-CC3FXIF7.js";
+import {
+  Observable,
   __rest,
   concatMap,
   distinct,
   from,
-  makeEnvironmentProviders,
   of,
-  setClassMetadata,
   switchMap,
-  timer,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule
-} from "./chunk-3P2MV2G7.js";
+  timer
+} from "./chunk-JI2ZN7O6.js";
 import {
   __async,
   __superGet
@@ -9874,4 +9876,4 @@ rxfire/auth/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-CXCDS5GF.js.map
+//# sourceMappingURL=chunk-3NDUFOY2.js.map

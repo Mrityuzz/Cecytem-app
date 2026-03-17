@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
@@ -15,7 +15,8 @@ export class DashboardComponent implements OnInit {
   credencial$: Observable<any> | null = null;
   currentYear: number = new Date().getFullYear();
 
-  constructor(private firestore: Firestore) {}
+  // ✅ usar inject en lugar de constructor directo
+  private firestore = inject(Firestore);
 
   ngOnInit() {
     const numeroControl = localStorage.getItem('numeroControl');
