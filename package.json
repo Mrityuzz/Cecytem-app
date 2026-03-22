@@ -31,6 +31,8 @@
     "@angular/router": "^20.3.17",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "firebase": "^11.10.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

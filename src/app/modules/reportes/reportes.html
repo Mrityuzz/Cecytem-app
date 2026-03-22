@@ -1,12 +1,4 @@
 <div class="reportes-container">
-  <h2>Reportes de Asistencia</h2>
-
-  <!-- Botones de descarga -->
-  <div class="acciones">
-    <button class="btn btn-success" (click)="descargarExcel()">Descargar Excel</button>
-    <button class="btn btn-primary">Descargar PDF</button>
-  </div>
-
   <!-- Estadísticas reales -->
   <div class="estadisticas">
     <h3>Estadísticas Generales</h3>
@@ -20,5 +12,10 @@
   <div class="grafica">
     <canvas id="graficaEntradasSalidas"></canvas>
     <p class="nota">*Gráfica con datos reales*</p>
+  </div>
+
+  <!-- Botón de descarga al final -->
+  <div class="acciones acciones-abajo">
+    <button class="btn btn-primary" (click)="descargarPDF()">Descargar PDF</button>
   </div>
 </div>
