@@ -1,43 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { ReportesService } from './reportes.service';
 
 @Component({
   selector: 'app-reportes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './reportes.html',
   styleUrls: ['./reportes.scss']
 })
 export class ReportesComponent implements OnInit {
-  estadisticas: any;
+descargarExcel() {
+throw new Error('Method not implemented.');
+}
+  totalEntradas = 0;
+  totalSalidas = 0;
+  promedioEntradas = 0;
+  promedioSalidas = 0;
 
   constructor(private reportesService: ReportesService) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.reportesService.obtenerEstadisticas(userId).subscribe({
-        next: (data: any) => this.estadisticas = data,
-        error: (err) => console.error('Error al cargar estadísticas:', err)
-      });
-    }
-  }
+    this.reportesService.obtenerDatosReportes().subscribe({
+      next: (rows) => {
+        const entradas = rows.filter(r => r.entrada);
+        const salidas = rows.filter(r => r.salida);
 
-  descargarExcel(): void {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.reportesService.descargarExcel(userId).subscribe({
-        next: (blob: Blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `reporte_asistencias_${userId}.xlsx`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-        },
-        error: (err) => console.error('Error al descargar Excel:', err)
-      });
-    }
+        this.totalEntradas = entradas.length;
+        this.totalSalidas = salidas.length;
+
+        const diasEntradas = [...new Set(entradas.map(e => e.entrada.split(' ')[0]))];
+        const diasSalidas = [...new Set(salidas.map(s => s.salida.split(' ')[0]))];
+
+        this.promedioEntradas = diasEntradas.length > 0 
+          ? +(this.totalEntradas / diasEntradas.length).toFixed(1) 
+          : 0;
+
+        this.promedioSalidas = diasSalidas.length > 0 
+          ? +(this.totalSalidas / diasSalidas.length).toFixed(1) 
+          : 0;
+      },
+      error: (err) => console.error('Error al cargar estadísticas:', err)
+    });
   }
 }

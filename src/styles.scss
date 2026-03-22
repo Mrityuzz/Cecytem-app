@@ -9,6 +9,12 @@ body {
   background: #f9f9f9; 
   color: #444;
   min-height: 100vh;
+  animation: fadeInBody 0.4s ease; /* entrada suave */
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .app-container {
@@ -23,6 +29,12 @@ body {
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+  animation: fadeInModule 0.5s ease;
+}
+
+@keyframes fadeInModule {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .module-title {
@@ -31,6 +43,12 @@ body {
   color: #008000;
   margin-top: 1rem;     
   margin-bottom: 0.8rem; 
+  animation: fadeInTitle 0.5s ease;
+}
+
+@keyframes fadeInTitle {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .module-card {
@@ -39,6 +57,18 @@ body {
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* ✅ primero la declaración */
+  animation: fadeInCard 0.6s ease;
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .module-card h3 {
@@ -61,6 +91,7 @@ body {
 .status.in-progress { color: #ff9900; }
 .status.done { color: #008000; }
 
+/* 🌙 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   body {
     background: #121212;
@@ -81,6 +112,7 @@ body {
   .module-title { color: #00ff99; }
 }
 
+/* 📱 Responsive */
 @media (max-width: 480px) {
   .app-container {
     padding-top: 50px;     

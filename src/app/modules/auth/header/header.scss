@@ -2,17 +2,35 @@
   display: flex;
   align-items: center;
   justify-content: center; 
-  background-color: #f5f5f5; /*  modo claro */
+  background-color: #f5f5f5; /* modo claro */
   color: #1a1a1a;
   padding: 1rem;
   border-bottom: 2px solid #1a1a1a;
   position: relative; 
+  animation: fadeInHeader 0.6s ease; /* entrada suave */
+
+  @keyframes fadeInHeader {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   .logo {
     position: absolute;
     left: 1rem; 
+    animation: slideInLogo 0.7s ease; /* entrada lateral */
+
+    @keyframes slideInLogo {
+      from { opacity: 0; transform: translateX(-15px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
     img {
       height: 50px;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: rotate(-3deg) scale(1.05); /* microinteracción distinta */
     }
   }
 
@@ -20,10 +38,17 @@
     margin: 0;
     font-size: 1.8rem;
     font-weight: bold;
+    animation: zoomInTitle 0.5s ease; /* entrada con zoom ligero */
+    position: relative;
+  }
+
+  @keyframes zoomInTitle {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
   }
 }
 
-/*  Modo oscuro */
+/* 🌙 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .auth-header {
     background-color: #1a1a1a;
@@ -32,6 +57,10 @@
 
     h1 {
       color: #00ff99;
+    }
+
+    .logo img:hover {
+      transform: rotate(-3deg) scale(1.05);
     }
   }
 }

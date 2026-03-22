@@ -19,6 +19,12 @@
   gap: 1rem;
   background: #fff; // 🔹 fondo claro fijo
   text-align: center;
+  animation: fadeSlideCard 0.5s ease; /* entrada suave */
+
+  @keyframes fadeSlideCard {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   .foto {
     width: 80px;
@@ -32,6 +38,13 @@
     font-size: 2.5rem; 
     color: #2196f3; 
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    animation: pulseFoto 1s ease; /* pulso ligero */
+  }
+
+  @keyframes pulseFoto {
+    0%   { transform: scale(0.9); opacity: 0.8; }
+    50%  { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
   }
 
   .header h2 {
@@ -39,6 +52,7 @@
     font-size: 1.4rem; 
     color: #008000; // 🔹 verde institucional del header en modo claro
     font-weight: bold;
+    animation: fadeInText 0.4s ease;
   }
 
   .info {
@@ -55,6 +69,12 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(0,0,0,0.1);
       padding-bottom: 0.2rem;
+      animation: fadeInInfo 0.4s ease;
+    }
+
+    @keyframes fadeInInfo {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     .telefono {
@@ -80,10 +100,11 @@
       font-size: 0.9rem; 
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
 
       &:hover {
         background-color: #d32f2f;
+        transform: scale(1.03); /* rebote ligero */
       }
     }
   }
@@ -123,6 +144,7 @@
 
       &:hover {
         background-color: #c62828;
+        transform: scale(1.03);
       }
     }
   }
