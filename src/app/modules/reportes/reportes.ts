@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportesService } from './reportes.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-// 🔹 Importar Chart.js
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
@@ -22,17 +20,22 @@ export class ReportesComponent implements OnInit {
   promedioEntradas = 0;
   promedioSalidas = 0;
 
-  registros: { entrada: string; salida: string; veces: string }[] = [];
+  registros: { numero_control: string; entrada: string; salida: string; veces: string }[] = [];
+  alumnoActual: string = ''; //  Se asigna dinámicamente según el login
 
   constructor(private reportesService: ReportesService) {}
 
   ngOnInit(): void {
+    //  Leer el número de control del alumno actual desde localStorage
+    this.alumnoActual = localStorage.getItem('numero_control') || '';
+
     this.reportesService.obtenerDatosReportes().subscribe({
       next: (rows) => {
-        this.registros = rows;
+        //  Filtrar solo los registros del alumno actual
+        this.registros = rows.filter(r => r.numero_control === this.alumnoActual);
 
-        const entradas = rows.filter((r) => r.entrada);
-        const salidas = rows.filter((r) => r.salida);
+        const entradas = this.registros.filter((r) => r.entrada);
+        const salidas = this.registros.filter((r) => r.salida);
 
         this.totalEntradas = entradas.length;
         this.totalSalidas = salidas.length;
@@ -46,25 +49,21 @@ export class ReportesComponent implements OnInit {
         this.promedioSalidas =
           diasSalidas.length > 0 ? +(this.totalSalidas / diasSalidas.length).toFixed(1) : 0;
 
-        // 🔹 Generar gráfica después de calcular datos
         this.generarGraficaEntradasSalidas();
       },
       error: (err) => console.error('Error al cargar estadísticas:', err),
     });
   }
-  // 🔹 Gráfica Entradas vs Salidas con soporte para modo claro/oscuro
+
   generarGraficaEntradasSalidas() {
     const ctx = document.getElementById('graficaEntradasSalidas') as HTMLCanvasElement;
     if (!ctx) return;
 
-    // Detectar si está en modo oscuro
     const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Colores dinámicos según tema
-    const colorEntradas = '#00ff99'; // verde neón para entradas
-    const colorSalidas = '#f44336'; // rojo institucional para salidas
-    const tituloColor = isDarkMode ? '#00ff99' : '#008000'; // verde neón en oscuro, verde institucional en claro
-    const legendColor = isDarkMode ? '#eee' : '#333'; // texto claro en oscuro, oscuro en claro
+    const colorEntradas = '#00ff99';
+    const colorSalidas = '#f44336';
+    const tituloColor = isDarkMode ? '#00ff99' : '#008000';
+    const legendColor = isDarkMode ? '#eee' : '#333';
 
     new Chart(ctx, {
       type: 'pie',
@@ -84,10 +83,7 @@ export class ReportesComponent implements OnInit {
         plugins: {
           legend: {
             position: 'bottom',
-            labels: {
-              color: legendColor,
-              font: { size: 12 },
-            },
+            labels: { color: legendColor, font: { size: 12 } },
           },
           title: {
             display: true,
@@ -102,32 +98,26 @@ export class ReportesComponent implements OnInit {
 
   descargarPDF() {
     const doc = new jsPDF();
-
-    // 🔹 Logo institucional desde assets
     const logoPath = 'assets/logo/CECYTEM.png';
     const img = new Image();
     img.src = logoPath;
 
     img.onload = () => {
-      // Insertar logo
       doc.addImage(img, 'PNG', 14, 10, 30, 20);
 
-      // Encabezado con colores institucionales
       doc.setFontSize(16);
-      doc.setTextColor('#FF6600'); // naranja institucional
+      doc.setTextColor('#FF6600');
       doc.text('CECyTE Michoacán', 50, 20);
 
       doc.setFontSize(12);
-      doc.setTextColor('#008000'); // verde institucional
-      doc.text('Reporte de Asistencia - Estadísticas Generales', 50, 28);
+      doc.setTextColor('#008000');
+      doc.text(`Reporte de Asistencia - Alumno ${this.alumnoActual}`, 50, 28);
 
-      // Fecha automática
       const fecha = new Date().toLocaleDateString();
       doc.setFontSize(10);
       doc.setTextColor('#000');
       doc.text(`Fecha: ${fecha}`, 14, 40);
 
-      // Tabla de estadísticas generales
       autoTable(doc, {
         startY: 45,
         head: [['Total Entradas', 'Total Salidas', 'Promedio Entradas', 'Promedio Salidas']],
@@ -139,7 +129,6 @@ export class ReportesComponent implements OnInit {
         bodyStyles: { fillColor: '#f9f9f9' },
       });
 
-      // Tabla detallada de registros
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 10,
         head: [['Entrada', 'Salida', 'Veces']],
@@ -149,7 +138,6 @@ export class ReportesComponent implements OnInit {
         bodyStyles: { fillColor: '#fff' },
       });
 
-      // Pie de página institucional
       doc.setFontSize(10);
       doc.setTextColor('#555');
       doc.text(
@@ -158,8 +146,7 @@ export class ReportesComponent implements OnInit {
         doc.internal.pageSize.height - 10,
       );
 
-      // Guardar archivo
-      doc.save('reporte-asistencia.pdf');
+      doc.save(`reporte-${this.alumnoActual}.pdf`);
     };
   }
 }
