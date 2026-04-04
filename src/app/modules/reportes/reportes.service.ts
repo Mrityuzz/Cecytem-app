@@ -8,15 +8,12 @@ import { collection, doc } from 'firebase/firestore';
   providedIn: 'root'
 })
 export class ReportesService {
-  private sheetId = '11B1vWbYto5hD0G0FNMIqUkx7W-HxTeE4fzq1bqLytiU'; // hoja de asistencia
-  private apiKey = 'AIzaSyCXp6fyBDUtwfVNNisHD-EEcW0JCWyLALQ';       // clave API
-  private range = 'Hoja1!A:G'; // rango de columnas
+  private sheetId = '11B1vWbYto5hD0G0FNMIqUkx7W-HxTeE4fzq1bqLytiU';
+  private apiKey = 'AIzaSyCXp6fyBDUtwfVNNisHD-EEcW0JCWyLALQ';
+  private range = 'Hoja1!A:G';
 
   constructor(private http: HttpClient, private firestore: Firestore) {}
 
-  /**
-   * 🔹 Devuelve todas las filas de Google Sheets
-   */
   obtenerDatosReportes(): Observable<{
     numero_control: string; entrada: string; salida: string; veces: string;
   }[]> {
@@ -24,36 +21,28 @@ export class ReportesService {
     return this.http.get<any>(url).pipe(
       map(res => {
         const filas = res.values || [];
-        return filas.slice(1) // saltar encabezados
-          .map((fila: any[]) => ({
-            numero_control: fila[1] || '', // Columna B (Número de control)
-            entrada: fila[4] || '',        // Columna E (Entrada)
-            salida: fila[5] || '',         // Columna F (Salida)
-            veces: fila[6] || ''           // Columna G (Veces)
-          }));
+        return filas.slice(1).map((fila: any[]) => ({
+          numero_control: fila[1] || '',
+          entrada: fila[4] || '',
+          salida: fila[5] || '',
+          veces: fila[6] || ''
+        }));
       })
     );
   }
 
-  /**
-   *  Devuelve historial del alumno desde Firebase
-   * Forzamos que `fecha` siempre sea string "YYYY-MM-DD"
-   */
   obtenerHistorial(numero_control: string): Observable<any[]> {
     const ref = collection(this.firestore, `alumnos/${numero_control}/historial`);
     return collectionData(ref, { idField: 'id' }).pipe(
       map(historial => historial.map((h: any) => ({
         ...h,
         fecha: h.fecha && typeof h.fecha === 'object' && h.fecha.toDate
-          ? h.fecha.toDate().toISOString().split('T')[0] //  Timestamp → "YYYY-MM-DD"
-          : String(h.fecha || '')                        //  String o vacío
+          ? h.fecha.toDate().toISOString().split('T')[0]
+          : String(h.fecha || '')
       })))
     );
   }
 
-  /**
-   *  Devuelve datos del alumno desde Firebase
-   */
   getAlumno(numero_control: string): Observable<any> {
     const ref = doc(this.firestore, `alumnos/${numero_control}`);
     return docData(ref, { idField: 'id' });

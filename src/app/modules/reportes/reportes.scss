@@ -1,11 +1,11 @@
 .reportes-container {
-  padding: 2.8rem 1rem 1.5rem 1rem; // 🔹 aire arriba más amplio (2.8rem), abajo controlado (1.5rem)
+  padding: 2.8rem 1rem 1.5rem 1rem;
   max-width: 900px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 0.8rem; // 🔹 separación compacta entre bloques
+  gap: 0.8rem;
 
   h2 {
     text-align: center;
@@ -15,30 +15,80 @@
     font-size: 1.5rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    animation: fadeInDown 0.6s ease; // 🔹 animación de entrada
+    animation: fadeInDown 0.6s ease;
+  }
+
+  .filtros {
+    background: #fff;
+    border-radius: 6px;
+    padding: 0.6rem;
+    border: 1px solid #eee;
+    text-align: center;
+    animation: slideInLeft 0.6s ease; // 🔹 nueva animación
+
+    h3 {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #008000;
+    }
+
+    .selector-inline {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #008000;
+    }
+
+    select {
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #008000;
+      background: #fff;
+      color: #008000;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #008000;
+        color: #fff;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 4px rgba(0,128,0,0.4);
+      }
+    }
   }
 
   .acciones {
     display: flex;
     justify-content: center;
-    margin-top: 0.6rem;
-    margin-bottom: 1.2rem;
-    animation: fadeInUp 0.6s ease; // 🔹 animación de entrada
+    margin: 0.5rem 0;
 
     .btn {
       background: none;
       border: 1px solid #2196f3;
       color: #2196f3;
-      padding: 0.35rem 0.7rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      animation: bounceIn 0.8s ease; // 🔹 nueva animación
 
       &:hover {
         background: #2196f3;
         color: #fff;
-        transform: scale(1.05); // 🔹 efecto hover
       }
     }
   }
@@ -48,8 +98,8 @@
     border-radius: 8px;
     padding: 0.9rem;
     border: 1px solid #eee;
-    margin-top: 1.2rem;
-    animation: fadeIn 0.8s ease; // 🔹 animación de entrada
+    margin-top: 1rem;
+    animation: fadeIn 0.8s ease;
 
     h3 {
       text-align: center;
@@ -98,105 +148,90 @@
     border: 1px solid #eee;
     text-align: center;
     margin-top: 0.8rem;
-    animation: fadeInUp 0.8s ease; // 🔹 animación de entrada
+    animation: fadeInUp 0.8s ease;
 
     canvas {
       width: 100% !important;
-      height: 170px !important;
+      height: 150px !important;
       animation: fadeIn 1s ease;
     }
 
     .nota {
       font-size: 0.7rem;
       color: #777;
-      margin-top: 0.3rem;
+      margin-top: 0.2rem;
     }
   }
 }
 
 /* 🔹 Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+/* 🔹 Nuevas animaciones */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes zoomIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* 🔹 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .reportes-container {
-    h2 {
-      color: #00ff99;
+    h2 { color: #00ff99; }
+
+    .filtros {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      animation: slideInLeft 0.6s ease; // 🔹 también en oscuro
+
+      h3, label { color: #00ff99; }
+
+      select {
+        border: 1px solid #00ff99;
+        background: #1e1e1e;
+        color: #00ff99;
+
+        &:hover { background: #00ff99; color: #000; }
+        &:focus { box-shadow: 0 0 4px rgba(0,255,153,0.6); }
+      }
     }
 
     .acciones .btn {
       border-color: #00ff99;
       color: #00ff99;
+      animation: bounceIn 0.8s ease; // 🔹 también en oscuro
 
-      &:hover {
-        background: #00ff99;
-        color: #000;
-        transform: scale(1.05);
-      }
+      &:hover { background: #00ff99; color: #000; }
     }
 
     .estadisticas {
       background: #1e1e1e;
       border: 1px solid #333;
-      margin-top: 1.2rem;
 
-      h3 {
-        color: #00ff99;
-        margin-bottom: 0.6rem;
-      }
+      h3 { color: #00ff99; }
 
       .card {
         background: #1e1e1e;
         border: 1px solid #333;
-        padding: 0.5rem;
-        animation: zoomIn 0.5s ease;
 
-        &:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .valor {
-          color: #00ff99;
-          font-size: 1.1rem;
-        }
-
-        .label {
-          color: #ccc;
-          font-size: 0.7rem;
-        }
+        .valor { color: #00ff99; }
+        .label { color: #ccc; }
       }
     }
 
     .grafica {
       background: #1e1e1e;
       border: 1px solid #333;
-      margin-top: 0.8rem;
-      padding: 0.9rem;
-      animation: fadeInUp 0.8s ease;
 
-      .nota {
-        color: #aaa;
-        font-size: 0.7rem;
-      }
+      .nota { color: #aaa; }
     }
   }
 }

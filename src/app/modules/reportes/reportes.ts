@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { ReportesService } from './reportes.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -10,7 +11,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-reportes',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './reportes.html',
   styleUrls: ['./reportes.scss'],
 })
@@ -22,45 +23,56 @@ export class ReportesComponent implements OnInit {
 
   registrosSheets: { numero_control: string; entrada: string; salida: string; veces: string }[] = [];
   registrosFirebase: any[] = [];
-  alumnoActual: string = ''; // Se asigna dinámicamente según el login
+  alumnoActual: string = '';
+  nombreAlumno: string = '';
+
+  mesSeleccionado: number = new Date().getMonth() + 1;
+  anioSeleccionado: number = new Date().getFullYear();
 
   constructor(private reportesService: ReportesService) {}
 
   ngOnInit(): void {
     this.alumnoActual = localStorage.getItem('numero_control') || '';
 
-    // 🔹 Google Sheets
     this.reportesService.obtenerDatosReportes().subscribe({
       next: (rows) => {
         this.registrosSheets = rows.filter(r => r.numero_control === this.alumnoActual);
-
-        const entradas = this.registrosSheets.filter((r) => r.entrada);
-        const salidas = this.registrosSheets.filter((r) => r.salida);
-
-        this.totalEntradas = entradas.length;
-        this.totalSalidas = salidas.length;
-
-        const diasEntradas = [...new Set(entradas.map((e) => e.entrada.split(' ')[0]))];
-        const diasSalidas = [...new Set(salidas.map((s) => s.salida.split(' ')[0]))];
-
-        this.promedioEntradas =
-          diasEntradas.length > 0 ? +(this.totalEntradas / diasEntradas.length).toFixed(1) : 0;
-
-        this.promedioSalidas =
-          diasSalidas.length > 0 ? +(this.totalSalidas / diasSalidas.length).toFixed(1) : 0;
-
+        this.recalcularEstadisticas(this.registrosSheets);
         this.generarGraficaEntradasSalidas();
       },
       error: (err) => console.error('Error al cargar estadísticas de Sheets:', err),
     });
 
-    //  Firebase
     this.reportesService.obtenerHistorial(this.alumnoActual).subscribe({
       next: (historial) => {
         this.registrosFirebase = historial;
       },
       error: (err) => console.error('Error al cargar historial de Firebase:', err),
     });
+
+    this.reportesService.getAlumno(this.alumnoActual).subscribe({
+      next: (alumno) => {
+        this.nombreAlumno = alumno?.nombre || '';
+      },
+      error: (err) => console.error('Error al cargar datos del alumno:', err),
+    });
+  }
+
+  private recalcularEstadisticas(registros: any[]) {
+    const entradas = registros.filter((r) => r.entrada);
+    const salidas = registros.filter((r) => r.salida);
+
+    this.totalEntradas = entradas.length;
+    this.totalSalidas = salidas.length;
+
+    const diasEntradas = [...new Set(entradas.map((e) => e.entrada.split(' ')[0]))];
+    const diasSalidas = [...new Set(salidas.map((s) => s.salida.split(' ')[0]))];
+
+    this.promedioEntradas =
+      diasEntradas.length > 0 ? +(this.totalEntradas / diasEntradas.length).toFixed(1) : 0;
+
+    this.promedioSalidas =
+      diasSalidas.length > 0 ? +(this.totalSalidas / diasSalidas.length).toFixed(1) : 0;
   }
 
   generarGraficaEntradasSalidas() {
@@ -104,16 +116,48 @@ export class ReportesComponent implements OnInit {
     });
   }
 
-  //  Convierte string "YYYY-MM-DD" a "DD/MM/AAAA"
   private formatearFecha(fecha: any): string {
     if (!fecha) return '-';
     if (typeof fecha === 'string') {
-      const partes = fecha.split('-'); // ["2026","03","27"]
+      const partes = fecha.split('-');
       if (partes.length === 3) {
-        return `${partes[2]}/${partes[1]}/${partes[0]}`; // "27/03/2026"
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
       }
     }
     return String(fecha);
+  }
+
+  private filtrarPorMes(registros: any[]): any[] {
+    return registros.filter(r => {
+      const fechaStr = r.entrada || r.fecha;
+      if (!fechaStr) return false;
+
+      const soloFecha = fechaStr.split(' ')[0];
+      const partes = soloFecha.split('-');
+
+      if (partes.length !== 3) return false;
+
+      const anio = Number(partes[0]);
+      const mes = Number(partes[1]);
+
+      return anio === this.anioSeleccionado && mes === this.mesSeleccionado;
+    });
+  }
+
+  private calcularPromediosDesdeFirebase(registros: any[]) {
+    const entradas = registros.filter(r => r.tipo === 'entrada');
+    const salidas = registros.filter(r => r.tipo === 'salida');
+
+    const diasEntradas = [...new Set(entradas.map(e => e.fecha))];
+    const diasSalidas = [...new Set(salidas.map(s => s.fecha))];
+
+    const totalEntradas = entradas.length;
+    const totalSalidas = salidas.length;
+
+    const promEntradas = diasEntradas.length > 0 ? +(totalEntradas / diasEntradas.length).toFixed(1) : 0;
+    const promSalidas = diasSalidas.length > 0 ? +(totalSalidas / diasSalidas.length).toFixed(1) : 0;
+
+    return { totalEntradas, totalSalidas, promEntradas, promSalidas };
   }
 
   descargarPDF() {
@@ -121,6 +165,11 @@ export class ReportesComponent implements OnInit {
     const logoPath = 'assets/logo/CECYTEM.png';
     const img = new Image();
     img.src = logoPath;
+
+    const meses = [
+      'Enero','Febrero','Marzo','Abril','Mayo','Junio',
+      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
+    ];
 
     img.onload = () => {
       doc.addImage(img, 'PNG', 14, 10, 30, 20);
@@ -131,42 +180,37 @@ export class ReportesComponent implements OnInit {
 
       doc.setFontSize(12);
       doc.setTextColor('#008000');
-      doc.text(`Reporte de Asistencia - Alumno ${this.alumnoActual}`, 50, 28);
+      doc.text(`Reporte de Asistencia - ${meses[this.mesSeleccionado - 1]} ${this.anioSeleccionado}`, 50, 28);
+
+      doc.setFontSize(11);
+      doc.setTextColor('#FF6600');
+      doc.text(`Alumno: ${this.nombreAlumno} - ${this.alumnoActual}`, 50, 34);
 
       const fecha = new Date().toLocaleDateString('es-MX');
       doc.setFontSize(10);
-      doc.setTextColor('#000');
+      doc.setTextColor('#008000');
       doc.text(`Fecha: ${fecha}`, 14, 40);
 
-      //  Tabla de estadísticas (Google Sheets)
+      const registrosFirebaseFiltrados = this.filtrarPorMes(this.registrosFirebase);
+
+      const { totalEntradas, totalSalidas, promEntradas, promSalidas } =
+        this.calcularPromediosDesdeFirebase(registrosFirebaseFiltrados);
+
       autoTable(doc, {
-        startY: 45,
+        startY: 50,
         head: [['Total Entradas', 'Total Salidas', 'Promedio Entradas', 'Promedio Salidas']],
-        body: [
-          [this.totalEntradas, this.totalSalidas, this.promedioEntradas, this.promedioSalidas],
-        ],
+        body: [[totalEntradas, totalSalidas, promEntradas, promSalidas]],
         styles: { halign: 'center' },
         headStyles: { fillColor: '#008000', textColor: '#fff', fontStyle: 'bold' },
         bodyStyles: { fillColor: '#f9f9f9' },
       });
 
-      //  Tabla de registros (Google Sheets)
-      autoTable(doc, {
-        startY: (doc as any).lastAutoTable.finalY + 10,
-        head: [['Entrada', 'Salida', 'Veces']],
-        body: this.registrosSheets.map((r) => [r.entrada, r.salida, r.veces]),
-        styles: { fontSize: 9 },
-        headStyles: { fillColor: '#FF6600', textColor: '#fff', fontStyle: 'bold' },
-        bodyStyles: { fillColor: '#fff' },
-      });
-
-      //  Tabla de historial (Firebase con fecha como string)
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 10,
         head: [['Fecha', 'Hora', 'Tipo']],
-        body: this.registrosFirebase.map((r) => [
-          this.formatearFecha(r.fecha),   //  convierte "2026-03-27" a "27/03/2026"
-          r.hora || '-', 
+        body: registrosFirebaseFiltrados.map((r) => [
+          this.formatearFecha(r.fecha),
+          r.hora || '-',
           r.tipo || '-'
         ]),
         styles: { fontSize: 9 },
@@ -182,7 +226,7 @@ export class ReportesComponent implements OnInit {
         doc.internal.pageSize.height - 10,
       );
 
-      doc.save(`reporte-${this.alumnoActual}.pdf`);
+      doc.save(`reporte-${this.alumnoActual}-${this.mesSeleccionado}-${this.anioSeleccionado}.pdf`);
     };
   }
 }

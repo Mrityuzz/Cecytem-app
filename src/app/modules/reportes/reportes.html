@@ -13,6 +13,35 @@
     <canvas id="graficaEntradasSalidas"></canvas>
   </div>
 
+  <!-- 🔹 Selector de mes/año -->
+  <div class="filtros">
+    <h3>Seleccionar mes para el reporte</h3>
+
+    <label for="mes">Mes:</label>
+    <select id="mes" [(ngModel)]="mesSeleccionado">
+      <option [ngValue]="1">Enero</option>
+      <option [ngValue]="2">Febrero</option>
+      <option [ngValue]="3">Marzo</option>
+      <option [ngValue]="4">Abril</option>
+      <option [ngValue]="5">Mayo</option>
+      <option [ngValue]="6">Junio</option>
+      <option [ngValue]="7">Julio</option>
+      <option [ngValue]="8">Agosto</option>
+      <option [ngValue]="9">Septiembre</option>
+      <option [ngValue]="10">Octubre</option>
+      <option [ngValue]="11">Noviembre</option>
+      <option [ngValue]="12">Diciembre</option>
+    </select>
+
+    <label for="anio">Año:</label>
+    <select id="anio" [(ngModel)]="anioSeleccionado">
+      <option [ngValue]="2024">2024</option>
+      <option [ngValue]="2025">2025</option>
+      <option [ngValue]="2026">2026</option>
+      <option [ngValue]="2027">2027</option>
+    </select>
+  </div>
+
   <!-- Botón de descarga al final -->
   <div class="acciones acciones-abajo">
     <button class="btn btn-primary" (click)="descargarPDF()">Descargar PDF</button>
