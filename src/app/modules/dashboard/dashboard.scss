@@ -98,9 +98,12 @@
       margin: 0.3rem 0;
       font-weight: bold;
       color: var(--text-primary, #333);
-      white-space: nowrap;
-      line-height: 1.2;
+      line-height: 1.3;
       animation: fadeInInfo 0.4s ease;
+
+      /* 🔹 Ajuste: permitir saltos de línea */
+      white-space: normal;
+      word-break: break-word;
     }
 
     @keyframes fadeInInfo {

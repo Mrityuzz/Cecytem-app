@@ -2,7 +2,17 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+
+// ✅ Interface para tipar la credencial
+interface Credencial {
+  nombre: string;
+  carrera_tecnica: string;
+  numero_control: string;
+  activo: boolean;
+  anios: number[];
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -12,17 +22,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent implements OnInit {
-  credencial$: Observable<any> | null = null;
+  credencial$: Observable<Credencial> | null = null;
   currentYear: number = new Date().getFullYear();
 
-  // ✅ usar inject en lugar de constructor directo
   private firestore = inject(Firestore);
+  private auth = inject(Auth);
 
   ngOnInit() {
-    const numeroControl = localStorage.getItem('numeroControl');
-    if (numeroControl) {
-      const ref = doc(this.firestore, `alumnos/${numeroControl}`);
-      this.credencial$ = docData(ref); 
-    }
+    // 🔹 Escuchar cambios de sesión en Firebase Auth
+    onAuthStateChanged(this.auth, user => {
+      if (user?.email) {
+        const numeroControl = user.email.split('@')[0];
+        const ref = doc(this.firestore, `alumnos/${numeroControl}`);
+        this.credencial$ = docData(ref) as Observable<Credencial>;
+      }
+    });
   }
 }

@@ -1,9 +1,9 @@
 .cuenta-container {
   display: flex;
   justify-content: center;   
-  align-items: flex-start;   // 🔹 alinear arriba
+  align-items: flex-start;   
   height: 100vh;             
-  padding: 5rem 1rem 3rem;   // 🔹 aumentamos el aire arriba (de 4rem a 5rem)
+  padding: 5rem 1rem 3rem;   
   box-sizing: border-box;
 }
 
@@ -20,7 +20,7 @@
   background: #fff;
   text-align: center;
   animation: fadeSlideCard 0.5s ease;
-  margin-top: 0.5rem; // 🔹 separación extra respecto al header
+  margin-top: 0.5rem;
 
   @keyframes fadeSlideCard {
     from { opacity: 0; transform: translateY(12px); }
@@ -59,18 +59,25 @@
   .info {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
     text-align: left;
 
     p {
       margin: 0;
       font-size: 0.9rem; 
       color: #333;
-      display: flex;
-      justify-content: space-between;
       border-bottom: 1px solid rgba(0,0,0,0.1);
-      padding-bottom: 0.2rem;
+      padding-bottom: 0.3rem;
       animation: fadeInInfo 0.4s ease;
+
+      /* 🔹 Ajuste para textos largos */
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+
+      /* 🔹 Si el texto es muy largo, reducimos fuente */
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
     @keyframes fadeInInfo {
@@ -78,14 +85,8 @@
       to   { opacity: 1; }
     }
 
-    .telefono {
-      color: #333;
-    }
-
-    .nss {
-      color: #4caf50;
-      font-weight: bold;
-    }
+    .telefono { color: #333; }
+    .nss { color: #4caf50; font-weight: bold; }
   }
 
   .acciones {
@@ -129,16 +130,11 @@
     .info p {
       color: #e0e0e0;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.85rem; /* 🔹 un poco más pequeña en modo oscuro */
     }
 
-    .info .telefono {
-      color: #e0e0e0;
-    }
-
-    .info .nss {
-      color: #81c784;
-      font-weight: bold;
-    }
+    .info .telefono { color: #e0e0e0; }
+    .info .nss { color: #81c784; font-weight: bold; }
 
     .btn-logout {
       background-color: #e53935;

@@ -23,12 +23,16 @@
         <p class="control">{{ credencial.numero_control }}</p>
       </div>
 
-      <!-- Años de vigencia -->
+      <!-- Años de vigencia dinámicos -->
       <div class="años">
-        <span [ngClass]="{activo: currentYear === 2022 && credencial.activo, inactivo: currentYear === 2022 && !credencial.activo}">2022</span>
-        <span [ngClass]="{activo: currentYear === 2023 && credencial.activo, inactivo: currentYear === 2023 && !credencial.activo}">2023</span>
-        <span [ngClass]="{activo: currentYear === 2026 && credencial.activo, inactivo: currentYear === 2026 && !credencial.activo}">2026</span>
-        <span [ngClass]="{activo: currentYear === 2027 && credencial.activo, inactivo: currentYear === 2027 && !credencial.activo}">2027</span>
+        <span *ngFor="let anio of credencial.anios"
+              [ngClass]="{
+                activo: currentYear === anio && credencial.activo,
+                inactivo: currentYear === anio && !credencial.activo
+              }">
+          {{ anio }}
+        </span>
       </div>
     </div>
-  
+  </div>
+</div>
