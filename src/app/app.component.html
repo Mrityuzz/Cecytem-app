@@ -17,22 +17,30 @@
 
   <!-- Barra de navegación inferior -->
   <nav class="bottom-nav" id="bottomNav">
-    <a routerLink="/dashboard/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a data-route="dashboard/home"
+       (click)="navegar('dashboard/home')" 
+       [class.active]="currentRoute.startsWith('/dashboard')">
       <span class="material-symbols-outlined">business_center</span>
       <span class="label">Dashboard</span>
     </a>
 
-    <a routerLink="/asistencia/entrada" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a data-route="asistencia/entrada"
+       (click)="navegar('asistencia/entrada')" 
+       [class.active]="currentRoute.startsWith('/asistencia')">
       <span class="material-symbols-outlined">badge</span>
       <span class="label">Asistencia</span>
     </a>
 
-    <a routerLink="/reportes/historial" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a data-route="reportes/historial"
+       (click)="navegar('reportes/historial')" 
+       [class.active]="currentRoute.startsWith('/reportes')">
       <span class="material-symbols-outlined">analytics</span>
       <span class="label">Reportes</span>
     </a>
 
-    <a routerLink="/cuenta/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a data-route="cuenta/perfil"
+       (click)="navegar('cuenta/perfil')" 
+       [class.active]="currentRoute.startsWith('/cuenta')">
       <span class="material-symbols-outlined">manage_accounts</span>
       <span class="label">Cuenta</span>
     </a>

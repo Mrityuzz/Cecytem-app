@@ -55,7 +55,19 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* Modo oscuro */
+/* Animación formal para refresh manual */
+@keyframes pulseRefresh {
+  0%   { transform: scale(1); opacity: 0.8; }
+  50%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.bottom-nav a.refreshing .material-symbols-outlined {
+  animation: pulseRefresh 0.8s ease-in-out infinite;
+  color: #008000;
+}
+
+/* ---------------- MODO OSCURO ---------------- */
 @media (prefers-color-scheme: dark) {
   .bottom-nav {
     background: #1c1c1c;
@@ -70,8 +82,12 @@
   .bottom-nav a.active .material-symbols-outlined {
     background: rgba(0, 255, 153, 0.1);
   }
+  .bottom-nav a.refreshing .material-symbols-outlined {
+    color: #00ff99;
+  }
 }
 
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 480px) {
   .bottom-nav {
     height: 50px;

@@ -17,11 +17,13 @@ import { HeaderComponent } from './header/header';
 export class AppComponent {
   tituloModulo = '';
   mostrarLayout = false;   
+  currentRoute: string = '';
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
+        this.currentRoute = url;
         this.actualizarTitulo(url);
         this.actualizarLayout(url);
       }
@@ -43,10 +45,23 @@ export class AppComponent {
   }
 
   private actualizarLayout(url: string): void {
-    if (url.startsWith('/auth')) {
-      this.mostrarLayout = false;
+    this.mostrarLayout = !url.startsWith('/auth');
+  }
+
+  navegar(ruta: string) {
+    // Si ya estás en la ruta → refresca
+    if (this.currentRoute.startsWith('/' + ruta.split('/')[0])) {
+      const navItem = document.querySelector(`.bottom-nav a[data-route="${ruta}"]`);
+      navItem?.classList.add('refreshing');
+
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([ruta]).then(() => {
+          setTimeout(() => navItem?.classList.remove('refreshing'), 1500);
+        });
+      });
     } else {
-      this.mostrarLayout = true;
+      // Navega normalmente
+      this.router.navigate([ruta]);
     }
   }
 }
