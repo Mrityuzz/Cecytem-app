@@ -4,15 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from './auth-routing-module';
 import { Login } from './login/login';
-import { Registro } from './registro/registro';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     AuthRoutingModule,
-    Login,      
-    Registro    
+    Login,
   ]
 })
 export class AuthModule {}
