@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsistenciaService } from './asistencia.service';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-asistencia',
@@ -13,28 +14,32 @@ export class AsistenciaComponent implements OnInit {
   asistencia: { entrada: string, salida: string }[] = [];
   mensaje: string = '';
 
+  private auth = inject(Auth);
+
   constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit(): void {
-    // Recupera el número de control guardado en sesión/localStorage
-    const numeroControl = localStorage.getItem('numeroControl')?.trim();
+    // 🔹 Escuchar cambios de sesión en Firebase Auth
+    onAuthStateChanged(this.auth, user => {
+      if (user?.email) {
+        const numeroControl = user.email.split('@')[0].trim();
 
-    if (numeroControl && numeroControl.length > 0) {
-      this.asistenciaService.obtenerAsistencia(numeroControl).subscribe({
-        next: (data) => {
-          this.asistencia = data;
-          this.mensaje = data.length > 0
-            ? 'Historial cargado desde la hoja de cálculo.'
-            : 'No se encontraron registros de asistencia.';
-          console.log('Datos de asistencia:', data); // debug en consola
-        },
-        error: (err) => {
-          console.error('Error al obtener asistencia', err);
-          this.mensaje = 'Error al cargar asistencia desde la hoja.';
-        }
-      });
-    } else {
-      this.mensaje = 'No se encontró número de control en sesión.';
-    }
+        this.asistenciaService.obtenerAsistencia(numeroControl).subscribe({
+          next: (data) => {
+            this.asistencia = data;
+            this.mensaje = data.length > 0
+              ? 'Historial cargado desde la hoja de cálculo.'
+              : 'No se encontraron registros de asistencia.';
+            console.log('Datos de asistencia:', data);
+          },
+          error: (err) => {
+            console.error('Error al obtener asistencia', err);
+            this.mensaje = 'Error al cargar asistencia desde la hoja.';
+          }
+        });
+      } else {
+        this.mensaje = 'No hay sesión activa.';
+      }
+    });
   }
 }
