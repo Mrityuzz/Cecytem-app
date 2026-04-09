@@ -1,7 +1,7 @@
 import {
   AppCheckInstances,
   AuthInstances
-} from "./chunk-UDEYLEDS.js";
+} from "./chunk-MWAEUDNH.js";
 import {
   FirebaseApp,
   FirebaseApps,
@@ -10,8 +10,8 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-EYB26CRS.js";
-import "./chunk-IN5Z3P2O.js";
+} from "./chunk-UZNKCJWL.js";
+import "./chunk-2RPAT4HZ.js";
 import "./chunk-6UNWJBON.js";
 import {
   InjectionToken,
@@ -23,23 +23,7 @@ import {
   setClassMetadata,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-ZBSLPKLF.js";
-import {
-  Observable,
-  concatMap,
-  distinct,
-  distinctUntilChanged,
-  filter,
-  from,
-  map,
-  pairwise,
-  pipe,
-  scan,
-  startWith,
-  timer
-} from "./chunk-U5BGXTXY.js";
-import "./chunk-TRRHYBSK.js";
-import "./chunk-B2KI3AIV.js";
+} from "./chunk-5LSPHX4R.js";
 import {
   AbstractUserDataWriter,
   AggregateField,
@@ -163,6 +147,20 @@ import {
 import {
   registerVersion
 } from "./chunk-4ROSUFUP.js";
+import {
+  Observable,
+  concatMap,
+  distinct,
+  distinctUntilChanged,
+  filter,
+  from,
+  map,
+  pairwise,
+  pipe,
+  scan,
+  startWith,
+  timer
+} from "./chunk-JI2ZN7O6.js";
 import "./chunk-TWWAJFRB.js";
 
 // node_modules/rxfire/firestore/index.esm.js

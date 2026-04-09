@@ -91,7 +91,7 @@ import {
   provideNetlifyLoader,
   registerLocaleData,
   setRootDomAdapter
-} from "./chunk-IN5Z3P2O.js";
+} from "./chunk-2RPAT4HZ.js";
 import {
   XhrFactory,
   parseCookieValue
@@ -99,9 +99,8 @@ import {
 import {
   DOCUMENT,
   IMAGE_CONFIG
-} from "./chunk-ZBSLPKLF.js";
-import "./chunk-U5BGXTXY.js";
-import "./chunk-B2KI3AIV.js";
+} from "./chunk-5LSPHX4R.js";
+import "./chunk-JI2ZN7O6.js";
 import "./chunk-TWWAJFRB.js";
 export {
   APP_BASE_HREF,
