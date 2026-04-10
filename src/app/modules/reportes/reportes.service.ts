@@ -1,3 +1,6 @@
+/* La clase ReportesService en TypeScript es un servicio de Angular que interactúa con la API de 
+Google Sheets y con Firestore para recuperar y manipular datos relacionados con los reportes e 
+historial de los estudiantes. */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';

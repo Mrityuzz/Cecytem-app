@@ -1,3 +1,5 @@
+/* La clase CuentaService en TypeScript es un servicio de Angular que recupera en tiempo real los 
+datos de documentos de estudiantes desde Firestore basándose en el ID del estudiante. */
 import { Injectable } from '@angular/core';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';

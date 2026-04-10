@@ -1,3 +1,5 @@
+/* La clase AlumnoService en TypeScript es un servicio de Angular que recupera los datos de un 
+estudiante desde Firestore utilizando su ID de estudiante. */
 import { Injectable } from '@angular/core';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';

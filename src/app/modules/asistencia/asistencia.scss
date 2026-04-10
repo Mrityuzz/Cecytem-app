@@ -4,15 +4,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 3rem 1rem 2rem;
+  padding: calc(3rem + env(safe-area-inset-top)) 1rem calc(2rem + env(safe-area-inset-bottom));
 
   h2 {
     text-align: center;
-    color: var(--primary-color, #008000); // verde institucional en claro
+    color: var(--primary-color, #008000); 
     margin-bottom: 2.5rem;
     font-size: 1.4rem;
     font-weight: 600;
-    animation: slideFadeTitle 0.5s ease; /* entrada suave lateral */
+    animation: slideFadeTitle 0.5s ease; 
   }
 
   @keyframes slideFadeTitle {
@@ -31,14 +31,14 @@
   }
 
   .registro {
-    background: #f9f9f9; // fondo claro por defecto
+    background: #f9f9f9; 
     border-radius: 8px;
     padding: 1.25rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    animation: fadeScaleRow 0.35s ease; /* entrada con leve escala */
+    animation: fadeScaleRow 0.35s ease; 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     @keyframes fadeScaleRow {
@@ -47,61 +47,61 @@
     }
 
     &:hover {
-      transform: translateY(-2px); /* microinteracción */
+      transform: translateY(-2px); 
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .tipo {
       font-weight: bold;
       text-transform: uppercase;
-      color: #333; // texto oscuro en claro
+      color: #333; 
       transition: color 0.3s ease;
     }
 
     .hora {
-      color: #666; // gris medio en claro
+      color: #666; 
       transition: opacity 0.3s ease;
     }
 
     .hora:hover {
-      opacity: 0.7; /* feedback ligero */
+      opacity: 0.7; 
     }
 
     &.entrada {
-      border-left: 8px solid #008000; // verde institucional en claro
+      border-left: 8px solid #008000; 
     }
 
     &.salida {
-      border-left: 8px solid #f44336; // rojo salida en claro
+      border-left: 8px solid #f44336; 
     }
   }
 }
 
-/* 🔹 Modo oscuro */
+/*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .asistencia-container {
     h2 {
-      color: #00ff99; // verde neón en oscuro
+      color: #00ff99; 
     }
 
     .registro {
-      background: #1e1e1e; // fondo oscuro
+      background: #1e1e1e; 
       box-shadow: 0 2px 6px rgba(255,255,255,0.05);
 
       .tipo {
-        color: #fff; // texto claro en oscuro
+        color: #fff; 
       }
 
       .hora {
-        color: #bdbdbd; // gris claro en oscuro
+        color: #bdbdbd; 
       }
 
       &.entrada {
-        border-left: 8px solid #00ff99; // verde neón en oscuro
+        border-left: 8px solid #00ff99; 
       }
 
       &.salida {
-        border-left: 8px solid #ff5252; // rojo más brillante en oscuro
+        border-left: 8px solid #ff5252; 
       }
     }
   }

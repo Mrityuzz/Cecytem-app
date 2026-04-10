@@ -3,14 +3,14 @@
   top: 0;
   left: 0;               
   width: 100%;           
-  height: 60px;
+  height: calc(60px + env(safe-area-inset-top)); 
   display: flex;
   align-items: center;
   background: #ffffff; 
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 0.8rem;     
+  padding: env(safe-area-inset-top) 0.8rem 0 0.8rem; 
   z-index: 1000;
-  animation: fadeInHeader 0.4s ease; /* entrada suave */
+  animation: fadeInHeader 0.4s ease; 
 }
 
 @keyframes fadeInHeader {
@@ -20,7 +20,7 @@
 
 .app-header .logo img {
   height: 32px; 
-  transition: transform 0.2s ease; /* ✅ primero la declaración */
+  transition: transform 0.2s ease; 
   animation: fadeInLogo 0.5s ease;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .app-header .logo img:hover {
-  transform: scale(1.05); /* microinteracción simple */
+  transform: scale(1.05); 
 }
 
 .module-title {
@@ -72,7 +72,7 @@
 .app-header .actions .header-icon .material-symbols-outlined {
   font-size: 28px;
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.2s ease; /* ✅ primero la declaración */
+  transition: color 0.3s ease, transform 0.2s ease; 
 }
 
 .app-header .actions .header-icon .material-symbols-outlined:hover {
@@ -85,7 +85,7 @@
   color: #008000; 
 }
 
-/* 🌙 Modo oscuro */
+/*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .app-header {
     background: #1c1c1c;
@@ -105,11 +105,11 @@
   }
 }
 
-/* 📱 Responsive */
+/*  Responsive */
 @media (max-width: 480px) {
   .app-header {
-    height: 50px;
-    padding: 0.4rem 0.5rem;
+    height: calc(50px + env(safe-area-inset-top));
+    padding: calc(0.4rem + env(safe-area-inset-top)) 0.5rem 0 0.5rem;
   }
   .app-header .logo img {
     height: 26px; 

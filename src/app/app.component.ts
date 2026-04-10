@@ -1,3 +1,6 @@
+/* La clase AppComponent en este código TypeScript es responsable de gestionar el título y el 
+diseño en función de la ruta actual en una aplicación Angular, así como de manejar los eventos de 
+navegación. */
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

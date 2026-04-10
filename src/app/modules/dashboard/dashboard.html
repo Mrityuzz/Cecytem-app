@@ -13,8 +13,14 @@
         <p>Colegios de Estudios Científicos y Tecnológicos</p>
       </div>
 
+      <!-- Foto o icono -->
       <div class="foto">
-        <span class="material-symbols-outlined">account_circle</span>
+        <ng-container *ngIf="credencial.foto_url; else iconoDefault">
+          <img [src]="credencial.foto_url" alt="Foto de {{ credencial.nombre }}">
+        </ng-container>
+        <ng-template #iconoDefault>
+          <span class="material-symbols-outlined">account_circle</span>
+        </ng-template>
       </div>
 
       <div class="info">

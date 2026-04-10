@@ -1,23 +1,31 @@
 <div class="cuenta-container" *ngIf="cuenta">
   <div class="cuenta-card">
+    <!-- Foto o ícono -->
     <div class="foto">
-      <span class="material-symbols-outlined">account_circle</span>
+      <ng-container *ngIf="cuenta.foto_url; else iconoDefault">
+        <img [src]="cuenta.foto_url" alt="Foto de {{ cuenta.nombre }}">
+      </ng-container>
+      <ng-template #iconoDefault>
+        <span class="material-symbols-outlined">account_circle</span>
+      </ng-template>
     </div>
 
+    <!-- Encabezado -->
     <div class="header">
       <h2>Perfil del Usuario</h2>
     </div>
 
+    <!-- Información -->
     <div class="info">
       <p><strong>Nombre:</strong> {{ cuenta.nombre }}</p>
       <p><strong>Carrera:</strong> {{ cuenta.carrera_tecnica }}</p>
       <p><strong>Número de Control:</strong> {{ cuenta.numero_control }}</p>
       <p><strong>NSS:</strong> {{ cuenta.nss }}</p>
       <p><strong>Semestre:</strong> {{ cuenta.semestre }}</p>
-      <!-- Nuevo campo de teléfono -->
       <p><strong>Teléfono:</strong> <span class="telefono"> {{ cuenta.telefono }}</span></p>
     </div>
 
+    <!-- Acciones -->
     <div class="acciones">
       <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
     </div>

@@ -1,3 +1,5 @@
+/* La clase CuentaRoutingModule define las rutas para navegar hacia el componente 
+CuentaComponent en una aplicación Angular. */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CuentaComponent } from './cuenta'; 

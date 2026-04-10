@@ -1,3 +1,7 @@
+/* La clase CuentaComponent en TypeScript es un componente de Angular que maneja la 
+información de la cuenta del usuario y la autenticación, obteniendo los datos de la cuenta 
+basados en el correo electrónico del usuario y proporcionando una funcionalidad de cierre de 
+sesión. */
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -22,7 +26,6 @@ export class CuentaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 🔹 Escuchar cambios de sesión en Firebase Auth
     onAuthStateChanged(this.auth, user => {
       if (user?.email) {
         const numeroControl = user.email.split('@')[0];

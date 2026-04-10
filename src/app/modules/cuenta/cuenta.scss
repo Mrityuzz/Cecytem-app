@@ -3,7 +3,7 @@
   justify-content: center;   
   align-items: flex-start;   
   height: 100vh;             
-  padding: 5rem 1rem 3rem;   
+  padding: calc(5rem + env(safe-area-inset-top)) 1rem calc(7rem + env(safe-area-inset-bottom));   
   box-sizing: border-box;
 }
 
@@ -21,6 +21,7 @@
   text-align: center;
   animation: fadeSlideCard 0.5s ease;
   margin-top: 0.5rem;
+  margin-bottom: 3rem;   
 
   @keyframes fadeSlideCard {
     from { opacity: 0; transform: translateY(12px); }
@@ -28,18 +29,28 @@
   }
 
   .foto {
-    width: 80px;
-    height: 80px;
+    width: 85px;              
+    height: 85px;
     margin: 0 auto;
-    border-radius: 50%;
+    border-radius: 50%;        
     background: #e3f2fd; 
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem; 
-    color: #2196f3; 
+    overflow: hidden;          
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     animation: pulseFoto 1s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       
+    }
+
+    .material-symbols-outlined {
+      font-size: 2.5rem;       
+      color: #2196f3;
+    }
   }
 
   @keyframes pulseFoto {
@@ -69,20 +80,8 @@
       border-bottom: 1px solid rgba(0,0,0,0.1);
       padding-bottom: 0.3rem;
       animation: fadeInInfo 0.4s ease;
-
-      /* 🔹 Ajuste para textos largos */
-      white-space: normal;
-      word-break: break-word;
       line-height: 1.4;
-
-      /* 🔹 Si el texto es muy largo, reducimos fuente */
-      max-width: 100%;
       overflow-wrap: anywhere;
-    }
-
-    @keyframes fadeInInfo {
-      from { opacity: 0; }
-      to   { opacity: 1; }
     }
 
     .telefono { color: #333; }
@@ -112,7 +111,7 @@
   }
 }
 
-/* 🔹 Modo oscuro */
+/*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .cuenta-card {
     background: #1e1e1e;
@@ -120,29 +119,17 @@
 
     .foto {
       background: #263238;
-      color: #64b5f6;
+      .material-symbols-outlined { color: #64b5f6; }
     }
 
-    .header h2 {
-      color: #00ff99;
-    }
-
-    .info p {
-      color: #e0e0e0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.85rem; /* 🔹 un poco más pequeña en modo oscuro */
-    }
-
+    .header h2 { color: #00ff99; }
+    .info p { color: #e0e0e0; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .info .telefono { color: #e0e0e0; }
     .info .nss { color: #81c784; font-weight: bold; }
 
     .btn-logout {
       background-color: #e53935;
-
-      &:hover {
-        background-color: #c62828;
-        transform: scale(1.03);
-      }
+      &:hover { background-color: #c62828; transform: scale(1.03); }
     }
   }
 }

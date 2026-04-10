@@ -1,3 +1,5 @@
+/* La clase ReportesRoutingModule define las rutas para el componente ReportesComponent en 
+una aplicación Angular. */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReportesComponent } from './reportes';

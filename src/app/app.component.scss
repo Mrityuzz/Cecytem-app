@@ -6,9 +6,9 @@
   display: flex;
   background: var(--nav-bg, #ffffff);
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0;
+  padding: calc(0.5rem + env(safe-area-inset-bottom)) 0; 
   z-index: 1000;
-  animation: slideUp 0.4s ease; /* entrada suave */
+  animation: slideUp 0.4s ease;
 }
 
 @keyframes slideUp {
@@ -40,14 +40,14 @@
 .bottom-nav a.active {
   color: var(--nav-active, #008000);
   font-weight: 600;
-  transform: translateY(-2px); /* leve levantamiento */
+  transform: translateY(-2px);
 }
 
 .bottom-nav a.active .material-symbols-outlined {
   background: rgba(0, 128, 0, 0.1);
   border-radius: 50%;
   padding: 4px;
-  animation: fadeScale 0.25s ease; /* efecto suave */
+  animation: fadeScale 0.25s ease;
 }
 
 @keyframes fadeScale {
@@ -55,7 +55,7 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* Animación formal para refresh manual */
+
 @keyframes pulseRefresh {
   0%   { transform: scale(1); opacity: 0.8; }
   50%  { transform: scale(1.1); opacity: 1; }
@@ -90,8 +90,8 @@
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 480px) {
   .bottom-nav {
-    height: 50px;
-    padding: 0.3rem 0;
+    height: calc(50px + env(safe-area-inset-bottom)); 
+    padding: calc(0.3rem + env(safe-area-inset-bottom)) 0;
   }
   .bottom-nav a .material-symbols-outlined {
     font-size: 24px;

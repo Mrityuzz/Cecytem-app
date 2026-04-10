@@ -1,3 +1,7 @@
+/* La clase ReportesComponent en TypeScript es responsable de gestionar y mostrar los reportes 
+relacionados con la asistencia de los estudiantes, incluyendo la obtención de datos desde Google 
+Sheets y Firebase, el cálculo de estadísticas, la generación de gráficos y la exportación de 
+reportes a PDF. */
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';

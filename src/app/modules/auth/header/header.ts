@@ -1,3 +1,5 @@
+/* El componente AuthHeader en TypeScript se define con una propiedad de entrada para el título 
+y la información de estilos.. */
 import { Component, Input } from '@angular/core';
 
 @Component({

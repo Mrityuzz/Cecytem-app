@@ -1,14 +1,25 @@
-.auth-container {
-  max-width: 280px;
-  margin: 4rem auto 0 auto; 
-  padding: 1rem 0.8rem;
+.page {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
-  min-height: calc(100vh - 4rem); 
+  min-height: 100vh; 
+}
+
+.auth-header {
+  flex: 0 0 auto; 
+}
+
+.auth-container {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;   
+  align-items: center;           
+  max-width: 320px;
+  margin: 0 auto;
+  padding: calc(4rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom));     
   background: #f9f9f9;
   color: #444;
-  animation: fadeInContainer 0.5s ease; /* entrada suave */
+  animation: fadeInContainer 0.5s ease;
 
   @keyframes fadeInContainer {
     from { opacity: 0; }
@@ -17,10 +28,10 @@
 
   .logo {
     display: block;
-    margin: 0 auto 1.2rem auto; 
-    max-height: 60px;           
+    margin-bottom: 1.5rem;
+    max-height: 90px;
     width: auto;
-    animation: fadeDownLogo 0.6s ease; /* entrada desde arriba */
+    animation: fadeDownLogo 0.6s ease;
   }
 
   @keyframes fadeDownLogo {
@@ -30,9 +41,9 @@
 
   h2 {
     text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
     color: #008000;
     animation: fadeInText 0.4s ease;
   }
@@ -42,49 +53,30 @@
     to   { opacity: 1; }
   }
 
-  label {
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 0.2rem;
-    display: block;
-    animation: fadeInLabel 0.4s ease;
-  }
-
-  @keyframes fadeInLabel {
-    from { opacity: 0; transform: translateX(-5px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-
   .input-group {
     display: flex;
     align-items: center;
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 0.4rem 0.6rem;
-    margin-bottom: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+    width: 100%;
     animation: fadeInInput 0.5s ease;
-
-    @keyframes fadeInInput {
-      from { opacity: 0; transform: scale(0.95); }
-      to   { opacity: 1; transform: scale(1); }
-    }
 
     i {
       color: #008000;
       margin-right: 0.5rem;
       font-size: 1rem;
-      transition: transform 0.2s ease;
     }
 
     input {
       flex: 1;
       border: none;
       outline: none;
-      font-size: 13px;
+      font-size: 14px;
       background: transparent;
       color: #444;
-      transition: color 0.3s ease;
 
       &::placeholder {
         color: #777;
@@ -103,12 +95,12 @@
 
   button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #008000;
     color: #fff;
     border: none;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s ease;
@@ -116,33 +108,23 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    animation: fadeUpButton 0.6s ease;
-
-    @keyframes fadeUpButton {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    i {
-      font-size: 1rem;
-    }
+    margin-top: 1rem;
   }
 
   button:hover {
     background: #006400;
-    transform: scale(1.02); /* micro rebote */
+    transform: scale(1.02);
   }
 }
 
-/* 🔹 Modo oscuro */
+/* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .auth-container {
     background: #121212;
     color: #eee;
 
-    .logo { max-height: 55px; }
+    .logo { max-height: 80px; }
     h2 { color: #00ff99; }
-    label { color: #eee; }
 
     .input-group {
       background: #1e1e1e;
@@ -152,7 +134,6 @@
 
       input {
         color: #eee;
-
         &::placeholder { color: #aaa; }
         &:focus::placeholder { color: #00ff99; }
       }
@@ -170,20 +151,17 @@
 
     button:hover {
       background: #00cc7a;
-      transform: scale(1.02);
     }
   }
 }
 
-/* 🔹 Responsive */
+/* Responsive */
 @media (max-width: 480px) {
   .auth-container {
-    margin-top: 2rem; 
-    padding: 0.8rem 0.5rem;
-
-    .logo { max-height: 50px; }
-    h2 { font-size: 16px; margin-bottom: 0.6rem; }
-    .input-group input { font-size: 12px; padding: 7px; }
-    button { font-size: 13px; padding: 9px; }
+    padding: calc(3rem + env(safe-area-inset-top)) 1rem calc(1rem + env(safe-area-inset-bottom)); 
+    .logo { max-height: 70px; }
+    h2 { font-size: 20px; margin-bottom: 1rem; }
+    .input-group input { font-size: 13px; padding: 8px; }
+    button { font-size: 14px; padding: 10px; }
   }
 }

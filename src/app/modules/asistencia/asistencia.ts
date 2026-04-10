@@ -1,3 +1,5 @@
+/* La clase AsistenciaComponent en TypeScript es responsable de gestionar los datos de asistencia 
+y manejar los cambios de autenticación utilizando Firebase Auth en una aplicación Angular. */
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsistenciaService } from './asistencia.service';
@@ -19,7 +21,7 @@ export class AsistenciaComponent implements OnInit {
   constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit(): void {
-    // 🔹 Escuchar cambios de sesión en Firebase Auth
+    //  Escuchar cambios de sesión en Firebase Auth
     onAuthStateChanged(this.auth, user => {
       if (user?.email) {
         const numeroControl = user.email.split('@')[0].trim();

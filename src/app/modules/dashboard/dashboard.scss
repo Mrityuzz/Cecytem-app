@@ -3,9 +3,9 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh; 
-  padding: 1rem; 
+  padding: calc(1rem + env(safe-area-inset-top)) 1rem calc(1rem + env(safe-area-inset-bottom)); 
   background: var(--bg-color, #f0f0f0);
-  animation: fadeInContainer 0.5s ease; /* entrada suave */
+  animation: fadeInContainer 0.5s ease; 
 }
 
 @keyframes fadeInContainer {
@@ -21,10 +21,10 @@
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   display: flex;
-  flex-direction: row; /* 🔹 dos columnas */
+  flex-direction: row; 
   overflow: hidden;
   font-family: 'Arial', sans-serif;
-  animation: slideUpCard 0.6s ease; /* entrada con deslizamiento */
+  animation: slideUpCard 0.6s ease; 
 
   @keyframes slideUpCard {
     from { opacity: 0; transform: translateY(15px); }
@@ -77,11 +77,28 @@
   }
 
   .foto {
-    font-size: 3.5rem;
-    color: var(--primary-color, #2196f3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0.8rem 0;
     text-align: center;
-    animation: pulseFoto 1.2s ease; /* pulso ligero */
+
+    
+    img {
+      width: 90px;        
+      height: 110px;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    
+    .material-symbols-outlined {
+      font-size: 100px;   
+      color: #888;
+    }
+
+    animation: pulseFoto 1.2s ease; 
   }
 
   @keyframes pulseFoto {
@@ -101,7 +118,6 @@
       line-height: 1.3;
       animation: fadeInInfo 0.4s ease;
 
-      /* 🔹 Ajuste: permitir saltos de línea */
       white-space: normal;
       word-break: break-word;
     }
@@ -131,7 +147,7 @@
     }
 
     span:hover {
-      transform: scale(1.05); /* microinteracción */
+      transform: scale(1.05); 
     }
 
     .activo {
@@ -148,7 +164,7 @@
   }
 }
 
-/* 🌙 Modo oscuro */
+/*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .credencial-container { background: #121212; }
 
@@ -158,7 +174,8 @@
 
     .header h3 { color: #81c784; }
     .header p { color: #bbb; }
-    .foto { color: #64b5f6; }
+    .foto img { box-shadow: 0 2px 4px rgba(255,255,255,0.1); }
+    .foto .material-symbols-outlined { color: #64b5f6; }
     .info p { color: #e0e0e0; }
     .años span { background: #2c2c2c; color: #bbb; }
     .años .activo { background: #4caf50; color: #fff; }

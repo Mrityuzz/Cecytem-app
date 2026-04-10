@@ -9,7 +9,11 @@ body {
   background: #f9f9f9; 
   color: #444;
   min-height: 100vh;
-  animation: fadeInBody 0.4s ease; /* entrada suave */
+  animation: fadeInBody 0.4s ease; 
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 @keyframes fadeInBody {
@@ -19,8 +23,8 @@ body {
 
 .app-container {
   min-height: 100vh;
-  padding-top: 60px;     
-  padding-bottom: 70px;  
+  padding-top: calc(60px + env(safe-area-inset-top));     
+  padding-bottom: calc(70px + env(safe-area-inset-bottom));  
   max-width: 1200px;   
   margin: 0 auto;      
 }
@@ -91,7 +95,7 @@ body {
 .status.in-progress { color: #ff9900; }
 .status.done { color: #008000; }
 
-/* 🌙 Modo oscuro */
+/*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   body {
     background: #121212;
@@ -112,11 +116,11 @@ body {
   .module-title { color: #00ff99; }
 }
 
-/* 📱 Responsive */
+/*  Responsive */
 @media (max-width: 480px) {
   .app-container {
-    padding-top: 50px;     
-    padding-bottom: 60px;  
+    padding-top: calc(50px + env(safe-area-inset-top));     
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));  
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }

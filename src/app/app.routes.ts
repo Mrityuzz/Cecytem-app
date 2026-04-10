@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AsistenciaComponent } from './modules/asistencia/asistencia';
 
 export const routes: Routes = [
   {

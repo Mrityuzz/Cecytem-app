@@ -1,3 +1,5 @@
+/* La clase AuthService proporciona métodos para iniciar y cerrar sesión utilizando autenticación 
+por correo electrónico y contraseña con AngularFire. */
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 

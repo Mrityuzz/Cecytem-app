@@ -1,3 +1,4 @@
+/* La clase AuthRoutingModule define las rutas para la autenticación en una aplicación Angular. */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './login/login';

@@ -1,3 +1,6 @@
+/* La clase Login en este archivo de TypeScript maneja la autenticación de usuarios utilizando 
+Firebase Auth y recupera datos de estudiantes desde Firestore basándose en el correo 
+electrónico ingresado. */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';

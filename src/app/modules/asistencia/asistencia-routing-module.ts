@@ -1,3 +1,5 @@
+/* La clase AsistenciaRoutingModule define la configuración de enrutamiento para el módulo de 
+características de Asistencia en una aplicación Angular. */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AsistenciaComponent } from './asistencia';
