@@ -21,3 +21,24 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Capacitor / Ionic
+www/
+build/
+
+# Android / iOS builds
+android/
+ios/
+
+# Capacitor plugins generated files
+capacitor.config.json.backup
+capacitor.config.ts.backup
+
+# Environment files (no subir credenciales)
+*.env
+.env.local
+.env.production
+.env.development
+
+# Misc
+coverage/
