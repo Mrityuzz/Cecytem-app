@@ -4,16 +4,14 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   gap: 0.8rem;
 
   h2 {
     text-align: center;
     color: #008000;
     font-weight: bold;
-    margin: 0 0 1rem 0;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
     animation: fadeInDown 0.6s ease;
   }
@@ -58,15 +56,8 @@
       cursor: pointer;
       transition: all 0.3s ease;
 
-      &:hover {
-        background: #008000;
-        color: #fff;
-      }
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 4px rgba(0,128,0,0.4);
-      }
+      &:hover { background: #008000; color: #fff; }
+      &:focus { outline: none; box-shadow: 0 0 4px rgba(0,128,0,0.4); }
     }
   }
 
@@ -86,57 +77,53 @@
       transition: all 0.3s ease;
       animation: bounceIn 0.8s ease; 
 
-      &:hover {
-        background: #2196f3;
-        color: #fff;
-      }
+      &:hover { background: #2196f3; color: #fff; }
     }
   }
 
+  /* 🔥 Estadísticas Generales en filas */
   .estadisticas {
     background: #fff;
     border-radius: 8px;
-    padding: 0.9rem;
+    padding: 1rem;
     border: 1px solid #eee;
     margin-top: 1rem;
     animation: fadeIn 0.8s ease;
 
     h3 {
       text-align: center;
-      margin: 0 0 0.6rem 0;
-      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #008000;
     }
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 0.6rem;
 
-    .card {
-      background: #fff;
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafafa;
       border-radius: 6px;
-      padding: 0.5rem;
-      text-align: center;
+      padding: 0.5rem 0.8rem;
       border: 1px solid #eee;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: zoomIn 0.5s ease;
+      transition: background 0.3s ease;
 
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      &:hover { background: #f0f0f0; }
+
+      .label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #555;
       }
 
       .valor {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: bold;
-        margin: 0;
         color: #008000;
-      }
-
-      .label {
-        font-size: 0.7rem;
-        color: #555;
       }
     }
   }
@@ -164,14 +151,14 @@
   }
 }
 
+/* Animaciones */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
 
-/*  Modo oscuro */
+/* 🌙 Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .reportes-container {
     h2 { color: #00ff99; }
@@ -179,7 +166,6 @@
     .filtros {
       background: #1e1e1e;
       border: 1px solid #333;
-      animation: slideInLeft 0.6s ease; 
 
       h3, label { color: #00ff99; }
 
@@ -196,7 +182,6 @@
     .acciones .btn {
       border-color: #00ff99;
       color: #00ff99;
-      animation: bounceIn 0.8s ease; 
 
       &:hover { background: #00ff99; color: #000; }
     }
@@ -207,20 +192,32 @@
 
       h3 { color: #00ff99; }
 
-      .card {
-        background: #1e1e1e;
+      .item {
+        background: #2a2a2a;
         border: 1px solid #333;
 
-        .valor { color: #00ff99; }
         .label { color: #ccc; }
+        .valor { color: #00ff99; }
       }
     }
 
     .grafica {
       background: #1e1e1e;
       border: 1px solid #333;
-
       .nota { color: #aaa; }
     }
+  }
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .reportes-container {
+    .estadisticas h3 { font-size: 1rem; }
+    .estadisticas .item {
+      padding: 0.4rem 0.6rem;
+      .label { font-size: 0.8rem; }
+      .valor { font-size: 0.95rem; }
+    }
+    .grafica canvas { height: 120px !important; }
   }
 }

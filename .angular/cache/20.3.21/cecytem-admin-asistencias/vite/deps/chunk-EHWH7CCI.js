@@ -1,4 +1,14 @@
 import {
+  deleteApp,
+  getApp,
+  getApps,
+  initializeApp,
+  initializeServerApp,
+  onLog,
+  registerVersion,
+  setLogLevel
+} from "./chunk-4ROSUFUP.js";
+import {
   EnvironmentInjector,
   Inject,
   Injectable,
@@ -22,16 +32,6 @@ import {
   ɵɵdefineNgModule,
   ɵɵinject
 } from "./chunk-5LSPHX4R.js";
-import {
-  deleteApp,
-  getApp,
-  getApps,
-  initializeApp,
-  initializeServerApp,
-  onLog,
-  registerVersion,
-  setLogLevel
-} from "./chunk-4ROSUFUP.js";
 import {
   Observable,
   asyncScheduler,
@@ -398,4 +398,4 @@ firebase/app/dist/esm/index.esm.js:
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-UZNKCJWL.js.map
+//# sourceMappingURL=chunk-EHWH7CCI.js.map

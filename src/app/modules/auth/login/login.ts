@@ -1,6 +1,3 @@
-/* La clase Login en este archivo de TypeScript maneja la autenticación de usuarios utilizando 
-Firebase Auth y recupera datos de estudiantes desde Firestore basándose en el correo 
-electrónico ingresado. */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -24,28 +21,33 @@ export class Login {
     private router: Router,
     private authService: AuthService,
     private alumnoService: AlumnoService
-  ) {}
+  ) {
+    //  Recuperar credenciales guardadas al abrir el login
+    const savedEmail = localStorage.getItem('email');
+    const savedPassword = localStorage.getItem('password');
+    if (savedEmail) this.email = savedEmail;
+    if (savedPassword) this.password = savedPassword;
+  }
 
   async onLogin() {
     try {
-      // Login con Firebase Auth usando correo y contraseña
       const userCredential = await this.authService.login(this.email, this.password);
       console.log('Login correcto:', userCredential.user);
 
-      // Derivar número de control desde el correo institucional 
       const numeroControl = this.email.split('@')[0];
 
-      // Traer datos reales del alumno desde Firestore usando número de control como ID
       this.alumnoService.getAlumno(numeroControl).subscribe(alumno => {
         this.alumno = alumno;
         console.log('Alumno:', this.alumno);
 
         if (alumno) {
-          // Guardar número de control en localStorage con la clave que usa CuentaComponent
           localStorage.setItem('numeroControl', alumno.numero_control);
         }
 
-        // Redirigir al dashboard
+        //  Guardar credenciales para autocompletar en el futuro
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('password', this.password);
+
         this.router.navigate(['/dashboard/home']);
       });
     } catch (error) {
@@ -58,6 +60,8 @@ export class Login {
     this.authService.logout();
     this.email = '';
     this.password = '';
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
     this.router.navigate(['/auth/login']);
   }
 }

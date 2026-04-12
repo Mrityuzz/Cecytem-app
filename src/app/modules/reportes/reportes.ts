@@ -11,6 +11,10 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Chart, registerables } from 'chart.js';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
+
 Chart.register(...registerables);
 
 @Component({
@@ -115,7 +119,7 @@ export class ReportesComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Distribución de Entradas vs Salidas (Sheets)',
+            text: 'Distribución de Entradas Y Salidas',
             color: tituloColor,
             font: { size: 14, weight: 'bold' },
           },
@@ -159,56 +163,86 @@ export class ReportesComponent implements OnInit {
     const promSalidas = diasSalidas.length > 0 ? +(totalSalidas / diasSalidas.length).toFixed(1) : 0;
     return { totalEntradas, totalSalidas, promEntradas, promSalidas };
   }
+ async descargarPDF() {
+  const doc = new jsPDF();
+  const logoPath = 'assets/logo/CECYTEM.png';
+  const img = new Image();
+  img.src = logoPath;
 
-  descargarPDF() {
-    const doc = new jsPDF();
-    const logoPath = 'assets/logo/CECYTEM.png';
-    const img = new Image();
-    img.src = logoPath;
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-    const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  img.onload = async () => {
+    doc.addImage(img, 'PNG', 14, 10, 30, 20);
+    doc.setFontSize(16);
+    doc.setTextColor('#FF6600');
+    doc.text('CECyTE Michoacán', 50, 20);
+    doc.setFontSize(12);
+    doc.setTextColor('#008000');
+    doc.text(`Reporte de Asistencia - ${meses[this.mesSeleccionado - 1]} ${this.anioSeleccionado}`, 50, 28);
+    doc.setFontSize(11);
+    doc.setTextColor('#FF6600');
+    doc.text(`Alumno: ${this.nombreAlumno} - ${this.alumnoActual}`, 50, 34);
+    const fecha = new Date().toLocaleDateString('es-MX');
+    doc.setFontSize(10);
+    doc.setTextColor('#008000');
+    doc.text(`Fecha: ${fecha}`, 14, 40);
 
-    img.onload = () => {
-      doc.addImage(img, 'PNG', 14, 10, 30, 20);
-      doc.setFontSize(16);
-      doc.setTextColor('#FF6600');
-      doc.text('CECyTE Michoacán', 50, 20);
-      doc.setFontSize(12);
-      doc.setTextColor('#008000');
-      doc.text(`Reporte de Asistencia - ${meses[this.mesSeleccionado - 1]} ${this.anioSeleccionado}`, 50, 28);
-      doc.setFontSize(11);
-      doc.setTextColor('#FF6600');
-      doc.text(`Alumno: ${this.nombreAlumno} - ${this.alumnoActual}`, 50, 34);
-      const fecha = new Date().toLocaleDateString('es-MX');
-      doc.setFontSize(10);
-      doc.setTextColor('#008000');
-      doc.text(`Fecha: ${fecha}`, 14, 40);
+    const registrosFirebaseFiltrados = this.filtrarPorMes(this.registrosFirebase);
+    const { totalEntradas, totalSalidas, promEntradas, promSalidas } = this.calcularPromediosDesdeFirebase(registrosFirebaseFiltrados);
 
-      const registrosFirebaseFiltrados = this.filtrarPorMes(this.registrosFirebase);
-      const { totalEntradas, totalSalidas, promEntradas, promSalidas } = this.calcularPromediosDesdeFirebase(registrosFirebaseFiltrados);
+    // Primera tabla: resumen
+    autoTable(doc, {
+      startY: 50,
+      head: [['Total Entradas', 'Total Salidas', 'Promedio Entradas', 'Promedio Salidas']],
+      body: [[totalEntradas, totalSalidas, promEntradas, promSalidas]],
+      styles: { halign: 'center' },
+      headStyles: { fillColor: '#008000', textColor: '#fff', fontStyle: 'bold' },
+      bodyStyles: { fillColor: '#f9f9f9' },
+    });
 
-      autoTable(doc, {
-        startY: 50,
-        head: [['Total Entradas', 'Total Salidas', 'Promedio Entradas', 'Promedio Salidas']],
-        body: [[totalEntradas, totalSalidas, promEntradas, promSalidas]],
-        styles: { halign: 'center' },
-        headStyles: { fillColor: '#008000', textColor: '#fff', fontStyle: 'bold' },
-        bodyStyles: { fillColor: '#f9f9f9' },
+    // Obtener posición final de la primera tabla desde doc
+    const finalY = (doc as any).lastAutoTable?.finalY || 60;
+
+    // Segunda tabla: detalle de registros
+    autoTable(doc, {
+      startY: finalY + 10,
+      head: [['Fecha', 'Hora', 'Tipo']],
+      body: registrosFirebaseFiltrados.map(r => [this.formatearFecha(r.fecha), r.hora || '-', r.tipo || '-']),
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: '#008000', textColor: '#fff', fontStyle: 'bold' },
+      bodyStyles: { fillColor: '#fff' },
+    });
+
+    doc.setFontSize(10);
+    doc.setTextColor('#555');
+    doc.text('CECyTE Michoacán - Plantel 12 Morelia | Reporte automático', 14, doc.internal.pageSize.height - 10);
+
+    const fileName = `reporte-${this.alumnoActual}-${this.mesSeleccionado}-${this.anioSeleccionado}.pdf`;
+
+    if (Capacitor.getPlatform() === 'web') {
+      // En web: descarga normal
+      doc.save(fileName);
+    } else {
+      // En móvil: guardar en almacenamiento
+      const pdfOutput = doc.output('arraybuffer');
+      const base64Data = btoa(
+        new Uint8Array(pdfOutput).reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: base64Data,
+        directory: Directory.Documents
       });
 
-      autoTable(doc, {
-        startY: (doc as any).lastAutoTable.finalY + 10,
-        head: [['Fecha', 'Hora', 'Tipo']],
-        body: registrosFirebaseFiltrados.map(r => [this.formatearFecha(r.fecha), r.hora || '-', r.tipo || '-']),
-        styles: { fontSize: 9 },
-        headStyles: { fillColor: '#008000', textColor: '#fff', fontStyle: 'bold' },
-        bodyStyles: { fillColor: '#fff' },
-      });
-      doc.setFontSize(10);
-      doc.setTextColor('#555');
-      doc.text('CECyTE Michoacán - Plantel 12 Morelia | Reporte automático', 14, doc.internal.pageSize.height - 10);
+      console.log('PDF guardado en Documentos del dispositivo:', result.uri);
 
-      doc.save(`reporte-${this.alumnoActual}-${this.mesSeleccionado}-${this.anioSeleccionado}.pdf`);
-    };
-  }
+      // Abrir automáticamente con visor de PDF
+      await FileOpener.open({
+        filePath: result.uri,
+        contentType: 'application/pdf'
+      });
+    }
+  };
+}
 }

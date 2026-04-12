@@ -6,19 +6,7 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-UZNKCJWL.js";
-import {
-  InjectionToken,
-  Injector,
-  NgModule,
-  NgZone,
-  Optional,
-  PLATFORM_ID,
-  makeEnvironmentProviders,
-  setClassMetadata,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule
-} from "./chunk-5LSPHX4R.js";
+} from "./chunk-EHWH7CCI.js";
 import {
   Component,
   Deferred,
@@ -55,6 +43,18 @@ import {
   registerVersion,
   updateEmulatorBanner
 } from "./chunk-4ROSUFUP.js";
+import {
+  InjectionToken,
+  Injector,
+  NgModule,
+  NgZone,
+  Optional,
+  PLATFORM_ID,
+  makeEnvironmentProviders,
+  setClassMetadata,
+  ɵɵdefineInjector,
+  ɵɵdefineNgModule
+} from "./chunk-5LSPHX4R.js";
 import {
   Observable,
   __rest,
@@ -9878,4 +9878,4 @@ rxfire/auth/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-MWAEUDNH.js.map
+//# sourceMappingURL=chunk-EIR3AO4N.js.map

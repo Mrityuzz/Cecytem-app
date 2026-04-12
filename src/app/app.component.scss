@@ -9,6 +9,7 @@
   padding: calc(0.5rem + env(safe-area-inset-bottom)) 0; 
   z-index: 1000;
   animation: slideUp 0.4s ease;
+  height: 56px; /*  altura estándar */
 }
 
 @keyframes slideUp {
@@ -25,29 +26,35 @@
   align-items: center;
   justify-content: center;
   transition: color 0.3s ease, transform 0.25s ease;
-}
 
-.bottom-nav a .material-symbols-outlined {
-  font-size: 28px;
-  margin-bottom: 2px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
+  .material-symbols-outlined {
+    font-size: 26px; /*  tamaño equilibrado */
+    margin-bottom: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
 
-.bottom-nav a .label {
-  font-size: 12px;
-}
+  .label {
+    font-size: 12px;
+    line-height: 1.2;
+  }
 
-.bottom-nav a.active {
-  color: var(--nav-active, #008000);
-  font-weight: 600;
-  transform: translateY(-2px);
-}
+  &.active {
+    color: var(--nav-active, #008000);
+    font-weight: 600;
+    transform: translateY(-2px);
 
-.bottom-nav a.active .material-symbols-outlined {
-  background: rgba(0, 128, 0, 0.1);
-  border-radius: 50%;
-  padding: 4px;
-  animation: fadeScale 0.25s ease;
+    .material-symbols-outlined {
+      background: rgba(0, 128, 0, 0.1);
+      border-radius: 50%;
+      padding: 4px;
+      animation: fadeScale 0.25s ease;
+    }
+  }
+
+  &.refreshing .material-symbols-outlined {
+    animation: pulseRefresh 0.8s ease-in-out infinite;
+    color: #008000;
+  }
 }
 
 @keyframes fadeScale {
@@ -55,16 +62,10 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-
 @keyframes pulseRefresh {
   0%   { transform: scale(1); opacity: 0.8; }
   50%  { transform: scale(1.1); opacity: 1; }
   100% { transform: scale(1); opacity: 0.8; }
-}
-
-.bottom-nav a.refreshing .material-symbols-outlined {
-  animation: pulseRefresh 0.8s ease-in-out infinite;
-  color: #008000;
 }
 
 /* ---------------- MODO OSCURO ---------------- */
@@ -75,15 +76,18 @@
   }
   .bottom-nav a {
     color: #ffffff;
-  }
-  .bottom-nav a.active {
-    color: #00ff99;
-  }
-  .bottom-nav a.active .material-symbols-outlined {
-    background: rgba(0, 255, 153, 0.1);
-  }
-  .bottom-nav a.refreshing .material-symbols-outlined {
-    color: #00ff99;
+
+    &.active {
+      color: #00ff99;
+
+      .material-symbols-outlined {
+        background: rgba(0, 255, 153, 0.1);
+      }
+    }
+
+    &.refreshing .material-symbols-outlined {
+      color: #00ff99;
+    }
   }
 }
 
@@ -94,7 +98,7 @@
     padding: calc(0.3rem + env(safe-area-inset-bottom)) 0;
   }
   .bottom-nav a .material-symbols-outlined {
-    font-size: 24px;
+    font-size: 22px; /*  más compacto en móvil */
   }
   .bottom-nav a .label {
     font-size: 11px;

@@ -21,18 +21,23 @@ export class AsistenciaComponent implements OnInit {
   constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit(): void {
-    //  Escuchar cambios de sesión en Firebase Auth
+    // Escuchar cambios de sesión en Firebase Auth
     onAuthStateChanged(this.auth, user => {
       if (user?.email) {
         const numeroControl = user.email.split('@')[0].trim();
 
         this.asistenciaService.obtenerAsistencia(numeroControl).subscribe({
           next: (data) => {
-            this.asistencia = data;
+            //  Convertir formato ISO (YYYY-MM-DD) a amigable (DD/MM/YYYY)
+            this.asistencia = data.map(reg => ({
+              entrada: this.formatearFecha(reg.entrada),
+              salida: this.formatearFecha(reg.salida)
+            }));
+
             this.mensaje = data.length > 0
               ? 'Historial cargado desde la hoja de cálculo.'
               : 'No se encontraron registros de asistencia.';
-            console.log('Datos de asistencia:', data);
+            console.log('Datos de asistencia:', this.asistencia);
           },
           error: (err) => {
             console.error('Error al obtener asistencia', err);
@@ -43,5 +48,23 @@ export class AsistenciaComponent implements OnInit {
         this.mensaje = 'No hay sesión activa.';
       }
     });
+  }
+
+  // Función para transformar fechas con guiones a formato con diagonales
+  private formatearFecha(fecha: any): string {
+    if (!fecha) return '-';
+    if (typeof fecha === 'string') {
+      if (fecha.includes('-')) {
+        const [fechaISO, hora] = fecha.split(' ');
+        const partes = fechaISO.split('-'); 
+        if (partes.length === 3) {
+          return `${partes[2]}/${partes[1]}/${partes[0]}${hora ? ' ' + hora : ''}`;
+        }
+      }
+      if (fecha.includes('/')) {
+        return fecha; 
+      }
+    }
+    return String(fecha);
   }
 }
