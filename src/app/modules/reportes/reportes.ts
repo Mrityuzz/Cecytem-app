@@ -140,17 +140,32 @@ export class ReportesComponent implements OnInit {
   }
 
   private filtrarPorMes(registros: any[]): any[] {
-    return registros.filter(r => {
-      const fechaStr = r.entrada || r.fecha;
-      if (!fechaStr) return false;
-      const soloFecha = fechaStr.split(' ')[0];
+  return registros.filter(r => {
+    const fechaStr = r.entrada || r.fecha;
+    if (!fechaStr) return false;
+
+    const soloFecha = fechaStr.split(' ')[0];
+    let anio, mes;
+
+    if (soloFecha.includes('-')) {
+      // formato yyyy-mm-dd
       const partes = soloFecha.split('-');
       if (partes.length !== 3) return false;
-      const anio = Number(partes[0]);
-      const mes = Number(partes[1]);
-      return anio === this.anioSeleccionado && mes === this.mesSeleccionado;
-    });
-  }
+      anio = Number(partes[0]);
+      mes = Number(partes[1]);
+    } else if (soloFecha.includes('/')) {
+      // formato dd/mm/yyyy
+      const partes = soloFecha.split('/');
+      if (partes.length !== 3) return false;
+      anio = Number(partes[2]);
+      mes = Number(partes[1]);
+    } else {
+      return false;
+    }
+
+    return anio === this.anioSeleccionado && mes === this.mesSeleccionado;
+  });
+}
 
   private calcularPromediosDesdeFirebase(registros: any[]) {
     const entradas = registros.filter(r => r.tipo === 'entrada');
@@ -200,10 +215,9 @@ export class ReportesComponent implements OnInit {
       bodyStyles: { fillColor: '#f9f9f9' },
     });
 
-    // Obtener posición final de la primera tabla desde doc
     const finalY = (doc as any).lastAutoTable?.finalY || 60;
 
-    // Segunda tabla: detalle de registros
+    // Segunda tabla: detalle
     autoTable(doc, {
       startY: finalY + 10,
       head: [['Fecha', 'Hora', 'Tipo']],
@@ -220,26 +234,29 @@ export class ReportesComponent implements OnInit {
     const fileName = `reporte-${this.alumnoActual}-${this.mesSeleccionado}-${this.anioSeleccionado}.pdf`;
 
     if (Capacitor.getPlatform() === 'web') {
-      // En web: descarga normal
       doc.save(fileName);
     } else {
-      // En móvil: guardar en almacenamiento
-      const pdfOutput = doc.output('arraybuffer');
-      const base64Data = btoa(
-        new Uint8Array(pdfOutput).reduce((data, byte) => data + String.fromCharCode(byte), '')
-      );
+      //  Generar base64 seguro
+      const pdfBase64 = doc.output('datauristring').split(',')[1];
 
+      // Guardar en almacenamiento interno
       const result = await Filesystem.writeFile({
         path: fileName,
-        data: base64Data,
-        directory: Directory.Documents
+        data: pdfBase64,
+        directory: Directory.Data
       });
 
-      console.log('PDF guardado en Documentos del dispositivo:', result.uri);
+      // Obtener ruta nativa
+      const uriResult = await Filesystem.getUri({
+        path: fileName,
+        directory: Directory.Data
+      });
 
-      // Abrir automáticamente con visor de PDF
+      console.log('PDF guardado en dispositivo:', uriResult.uri);
+
+      // Abrir con visor de PDF
       await FileOpener.open({
-        filePath: result.uri,
+        filePath: uriResult.uri,
         contentType: 'application/pdf'
       });
     }

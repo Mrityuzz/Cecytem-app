@@ -25,160 +25,152 @@
   overflow: hidden;
   font-family: 'Arial', sans-serif;
   animation: slideUpCard 0.6s ease; 
+}
 
-  @keyframes slideUpCard {
-    from { opacity: 0; transform: translateY(15px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+@keyframes slideUpCard {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-  .lateral {
-    background: #4caf50;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-    writing-mode: vertical-rl;
-    padding: 8px;
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    animation: fadeInSide 0.7s ease;
-  }
+.credencial-card .lateral {
+  background: #4caf50;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  writing-mode: vertical-rl;
+  padding: 8px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  animation: fadeInSide 0.7s ease;
+}
 
-  @keyframes fadeInSide {
-    from { opacity: 0; transform: translateX(-10px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
+@keyframes fadeInSide {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
-  .contenido {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    justify-content: space-between;
-  }
+.credencial-card .contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: space-between;
+}
 
-  .header {
-    text-align: center;
-    border-bottom: 2px solid #4caf50;
-    padding-bottom: 0.4rem;
-    margin-bottom: 1rem;
-    animation: fadeInHeader 0.5s ease;
+.credencial-card .header {
+  text-align: center;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  animation: fadeInHeader 0.5s ease;
+}
 
-    @keyframes fadeInHeader {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+@keyframes fadeInHeader {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-    img { width: 50px; margin-bottom: 0.3rem; }
-    h3 { margin: 0; color: #4caf50; font-size: 1rem; }
-    p { margin: 0; font-size: 0.75rem; color: var(--text-secondary, #555); }
-  }
+.credencial-card .header img { width: 50px; margin-bottom: 0.3rem; }
+.credencial-card .header h3 { margin: 0; color: #4caf50; font-size: 1rem; }
+.credencial-card .header p { margin: 0; font-size: 0.75rem; color: var(--text-secondary, #555); }
 
-  .foto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.8rem 0;
-    text-align: center;
+.credencial-card .foto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8rem 0;
+  text-align: center;
+  animation: pulseFoto 1.2s ease; 
+}
 
-    
-    img {
-      width: 90px;        
-      height: 110px;
-      object-fit: cover;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
+.credencial-card .foto img {
+  width: 90px;        
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
 
-    
-    .material-symbols-outlined {
-      font-size: 100px;   
-      color: #888;
-    }
+.credencial-card .foto .material-symbols-outlined {
+  font-size: 100px;   
+  color: #888;
+}
 
-    animation: pulseFoto 1.2s ease; 
-  }
+@keyframes pulseFoto {
+  0%   { transform: scale(0.9); opacity: 0.8; }
+  50%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-  @keyframes pulseFoto {
-    0%   { transform: scale(0.9); opacity: 0.8; }
-    50%  { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-  }
+.credencial-card .info {
+  text-align: center;
+  margin: 1rem 0;
+}
 
-  .info {
-    text-align: center;
-    margin: 1rem 0;
+.credencial-card .info p {
+  margin: 0.3rem 0;
+  font-weight: bold;
+  color: var(--text-primary, #333);
+  line-height: 1.3;
+  animation: fadeInInfo 0.4s ease;
+  white-space: normal;
+  word-break: break-word;
+}
 
-    p {
-      margin: 0.3rem 0;
-      font-weight: bold;
-      color: var(--text-primary, #333);
-      line-height: 1.3;
-      animation: fadeInInfo 0.4s ease;
+@keyframes fadeInInfo {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
-      white-space: normal;
-      word-break: break-word;
-    }
+.credencial-card .info .nombre { font-size: 1rem; }
+.credencial-card .info .carrera { font-size: 0.95rem; }
+.credencial-card .info .control { font-size: 0.9rem; letter-spacing: 0.5px; }
 
-    @keyframes fadeInInfo {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+.credencial-card .años {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+  flex-wrap: nowrap;   
+  gap: 0.6rem;         
+}
 
-    .nombre { font-size: 1rem; }
-    .carrera { font-size: 0.95rem; }
-    .control { font-size: 0.9rem; letter-spacing: 0.5px; }
-  }
+.credencial-card .años span {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: var(--year-bg, #f5f5f5);
+  color: var(--text-secondary, #555);
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
 
-  .años {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.8rem;
+.credencial-card .años span:hover { transform: scale(1.05); }
 
-    span {
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      background: var(--year-bg, #f5f5f5);
-      color: var(--text-secondary, #555);
-      font-size: 0.75rem;
-      transition: transform 0.2s ease;
-    }
+.credencial-card .años .activo {
+  background: #4caf50;
+  color: #fff;
+  font-weight: bold;
+}
 
-    span:hover {
-      transform: scale(1.05); 
-    }
-
-    .activo {
-      background: #4caf50;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .inactivo {
-      background: #f44336;
-      color: #fff;
-      font-weight: bold;
-    }
-  }
+.credencial-card .años .inactivo {
+  background: #f44336;
+  color: #fff;
+  font-weight: bold;
 }
 
 /*  Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .credencial-container { background: #121212; }
-
-  .credencial-card {
-    background: #1e1e1e;
-    box-shadow: 0 4px 8px rgba(255,255,255,0.05);
-
-    .header h3 { color: #81c784; }
-    .header p { color: #bbb; }
-    .foto img { box-shadow: 0 2px 4px rgba(255,255,255,0.1); }
-    .foto .material-symbols-outlined { color: #64b5f6; }
-    .info p { color: #e0e0e0; }
-    .años span { background: #2c2c2c; color: #bbb; }
-    .años .activo { background: #4caf50; color: #fff; }
-    .años .inactivo { background: #f44336; color: #fff; }
-  }
+  .credencial-card { background: #1e1e1e; box-shadow: 0 4px 8px rgba(255,255,255,0.05); }
+  .credencial-card .header h3 { color: #81c784; }
+  .credencial-card .header p { color: #bbb; }
+  .credencial-card .foto img { box-shadow: 0 2px 4px rgba(255,255,255,0.1); }
+  .credencial-card .foto .material-symbols-outlined { color: #64b5f6; }
+  .credencial-card .info p { color: #e0e0e0; }
+  .credencial-card .años span { background: #2c2c2c; color: #bbb; }
+  .credencial-card .años .activo { background: #4caf50; color: #fff; }
+  .credencial-card .años .inactivo { background: #f44336; color: #fff; }
 }

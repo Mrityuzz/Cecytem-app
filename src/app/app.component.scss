@@ -9,7 +9,7 @@
   padding: calc(0.5rem + env(safe-area-inset-bottom)) 0; 
   z-index: 1000;
   animation: slideUp 0.4s ease;
-  height: 56px; /*  altura estándar */
+  height: 56px; 
 }
 
 @keyframes slideUp {
@@ -28,7 +28,7 @@
   transition: color 0.3s ease, transform 0.25s ease;
 
   .material-symbols-outlined {
-    font-size: 26px; /*  tamaño equilibrado */
+    font-size: 26px; 
     margin-bottom: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
   }
@@ -98,7 +98,7 @@
     padding: calc(0.3rem + env(safe-area-inset-bottom)) 0;
   }
   .bottom-nav a .material-symbols-outlined {
-    font-size: 22px; /*  más compacto en móvil */
+    font-size: 22px; 
   }
   .bottom-nav a .label {
     font-size: 11px;
