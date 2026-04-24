@@ -1,10 +1,12 @@
-/* La clase AppComponent en este código TypeScript es responsable de gestionar el título y el 
-diseño en función de la ruta actual en una aplicación Angular, así como de manejar los eventos de 
-navegación. */
-import { Component } from '@angular/core';
+/* La clase AppComponent gestiona el título, el layout y ahora también
+   verifica la sesión activa del usuario para evitar que se pierda al
+   rotar o cambiar de tema. */
+
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header';
+import { AuthService } from './services/auth'; // Importa tu servicio
 
 @Component({
   selector: 'app-root',
@@ -17,18 +19,33 @@ import { HeaderComponent } from './header/header';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   tituloModulo = '';
   mostrarLayout = false;   
   currentRoute: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
         this.currentRoute = url;
         this.actualizarTitulo(url);
         this.actualizarLayout(url);
+      }
+    });
+  }
+
+  ngOnInit() {
+    // Escuchar el estado de sesión persistente
+    this.authService.getAuthState(user => {
+      if (user) {
+        // Usuario sigue logueado → si está en login, lo mandamos al dashboard
+        if (this.currentRoute.startsWith('/auth')) {
+          this.router.navigate(['/dashboard']);
+        }
+      } else {
+        // No hay sesión → siempre login
+        this.router.navigate(['/auth/login']);
       }
     });
   }
@@ -52,7 +69,6 @@ export class AppComponent {
   }
 
   navegar(ruta: string) {
-    // Si ya estás en la ruta → refresca
     if (this.currentRoute.startsWith('/' + ruta.split('/')[0])) {
       const navItem = document.querySelector(`.bottom-nav a[data-route="${ruta}"]`);
       navItem?.classList.add('refreshing');
@@ -63,7 +79,6 @@ export class AppComponent {
         });
       });
     } else {
-      // Navega normalmente
       this.router.navigate([ruta]);
     }
   }
