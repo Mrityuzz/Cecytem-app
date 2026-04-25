@@ -1,12 +1,13 @@
-/* La clase AppComponent gestiona el título, el layout y ahora también
-   verifica la sesión activa del usuario para evitar que se pierda al
-   rotar o cambiar de tema. */
+/* La clase AppComponent en este código TypeScript es responsable de gestionar el título y el 
+diseño en función de la ruta actual en una aplicación Angular, así como de manejar los eventos de 
+navegación y mantener la sesión activa al rotar o cambiar tema. */
 
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header';
-import { AuthService } from './services/auth'; // Importa tu servicio
+import { Auth } from '@angular/fire/auth';
+import { onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
   mostrarLayout = false;   
   currentRoute: string = '';
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private auth: Auth) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
@@ -36,16 +37,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Escuchar el estado de sesión persistente
-    this.authService.getAuthState(user => {
+    // Escuchar el estado de sesión, pero sin login automático
+    onAuthStateChanged(this.auth, user => {
       if (user) {
-        // Usuario sigue logueado → si está en login, lo mandamos al dashboard
-        if (this.currentRoute.startsWith('/auth')) {
-          this.router.navigate(['/dashboard']);
-        }
+        // Usuario ya logueado → mantener sesión activa
+        console.log('Sesión activa, usuario sigue logueado');
+        // ❌ No redirigir automáticamente al dashboard
       } else {
-        // No hay sesión → siempre login
-        this.router.navigate(['/auth/login']);
+        // No hay sesión → mostrar login si no estás ya en /auth
+        if (!this.currentRoute.startsWith('/auth')) {
+          this.router.navigate(['/auth/login']);
+        }
       }
     });
   }
