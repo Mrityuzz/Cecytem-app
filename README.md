@@ -1,4 +1,4 @@
-﻿#  CECYTEM-ADMIN-ASISTENCIAS
+﻿#  CECYTEM-APP-ASISTENCIAS
 
 ##  Descripción
 Aplicación Angular desarrollada para la gestión de **asistencias y reportes estudiantiles** en el CECyTEM Plantel 12 Morelia.  
